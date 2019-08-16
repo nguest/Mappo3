@@ -2,10 +2,13 @@ import MapboxGL from '@react-native-mapbox-gl/maps';
 import React, { Component } from 'react';
 import {
   Dimensions,
+  SafeAreaView,
   StyleSheet,
   View,
 } from 'react-native';
 import mapboxApiKey from '../../config';
+import Geolocation from '@react-native-community/geolocation';
+
 
 const { height, width } = Dimensions.get('window');
 MapboxGL.setAccessToken(mapboxApiKey);
@@ -22,41 +25,54 @@ export default class Map extends Component {
     speed: 0.0,
   };
 
-
   componentDidMount() {
     MapboxGL.setTelemetryEnabled(false);
     console.log('mount')
     MapboxGL.locationManager.start();
+    console.log({navigator})
+    Geolocation.getCurrentPosition(
+      position => {
+        const location = JSON.stringify(position);
+        console.log(location)
+        this.setState({ location });
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
   }
 
-  onUserLocationUpdate(location) {
+  onUserLocationUpdate = (location) => {
     console.log({location})
+    const { latitude, longitude, altitude, heading, accuracy, speed } = location.coords;
     this.setState({
       timestamp: location.timestamp,
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      altitude: location.coords.altitude,
-      heading: location.coords.heading,
-      accuracy: location.coords.accuracy,
-      speed: location.coords.speed,
+      latitude,
+      longitude,
+      altitude,
+      heading,
+      accuracy,
+      speed,
     });
   }
 
   render() {
+
+    const x = Geolocation.watchPosition(this.onUserLocationUpdate);
+
     return (
-      <View style={styles.page}>
+      <SafeAreaView style={styles.page}>
         <View style={styles.container}>
           <MapboxGL.MapView
             zoomLevel={10}
             showUserLocation
             onUserLocationUpdate={this.onUserLocationUpdate}
-            userTrackingMode={MapboxGL.UserTrackingModes.Follow}
+            //userTrackingMode={MapboxGL.UserTrackingModes.Follow}
             style={styles.map}>
             <MapboxGL.Camera followZoomLevel={12} followUserLocation />
             <MapboxGL.UserLocation />
           </MapboxGL.MapView>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
