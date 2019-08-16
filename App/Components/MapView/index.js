@@ -27,18 +27,23 @@ export default class Map extends Component {
 
   componentDidMount() {
     MapboxGL.setTelemetryEnabled(false);
-    console.log('mount')
     MapboxGL.locationManager.start();
-    console.log({navigator})
     Geolocation.getCurrentPosition(
       position => {
         const location = JSON.stringify(position);
         console.log(location)
         this.setState({ location });
       },
-      error => Alert.alert(error.message),
+      error => console.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
+    this.positionWatchID = Geolocation.watchPosition(position => {
+      this.setState({position});
+    });
+  }
+
+  componentWillUnmount() {
+    this.positionWatchID != null && Geolocation.clearWatch(this.watchID);
   }
 
   onUserLocationUpdate = (location) => {
@@ -56,8 +61,8 @@ export default class Map extends Component {
   }
 
   render() {
-
-    const x = Geolocation.watchPosition(this.onUserLocationUpdate);
+    console.log({ p: this.state.position })
+    //const x = Geolocation.watchPosition(this.onUserLocationUpdate);
 
     return (
       <SafeAreaView style={styles.page}>
