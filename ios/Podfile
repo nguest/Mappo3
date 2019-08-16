@@ -44,3 +44,14 @@ target 'Mappo3-tvOS' do
   end
 
 end
+
+ # Mapbox
+ pod 'react-native-mapbox-gl', :path => '../node_modules/@react-native-mapbox-gl/maps'
+
+ post_install do |installer|
+   installer.pods_project.targets.each do |target|
+     if target.name == "React"
+       target.remove_from_project
+     end
+   end
+ end
