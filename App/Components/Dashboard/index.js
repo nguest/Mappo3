@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { bool, func, obj } from 'prop-types';
+import React from 'react';
+import { bool, func, object } from 'prop-types';
 import {
   Dimensions,
   View,
@@ -9,29 +9,28 @@ import DashboardInternals from './DashboardInternals';
 
 const { width } = Dimensions.get('window');
 
-const Dashboard = ({ currentPosition, isRecording, toggleRecord }) => {
-  console.log('dashboard', currentPosition && currentPosition.coords);
+const Dashboard = ({ currentPosition, isRecording, onToggleRecord }) => {
   return (
     <View style={{ ...styles.dashboard, width: width - 20 }}>
       <DashboardInternals
         currentPosition={currentPosition}
         isRecording={isRecording}
-        toggleRecord={toggleRecord}
+        onToggleRecord={onToggleRecord}
       />
     </View>
   );
 };
 
 Dashboard.propTypes = {
-  currentPosition: obj,
+  currentPosition: object,
   isRecording: bool,
-  toggleRecord: func,
+  onToggleRecord: func,
 };
 
 Dashboard.defaultProps = {
   currentPosition: {},
   isRecording: false,
-  toggleRecord: () => { },
+  onToggleRecord: () => { },
 };
 
 export default Dashboard;

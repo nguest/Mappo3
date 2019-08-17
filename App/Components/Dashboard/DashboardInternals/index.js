@@ -1,20 +1,19 @@
 
 import React from 'react';
-import { bool, func, obj } from 'prop-types';
+import { bool, func, object } from 'prop-types';
 import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import s from './styles';
 
-const DashboardInternals = ({ currentPosition, isRecording, toggleRecord }) => {
+const DashboardInternals = ({ currentPosition, isRecording, onToggleRecord }) => {
   if (currentPosition) {
     return (
       <>
-        <Text>00:00 </Text>
-        <Text>{currentPosition && currentPosition.coords && currentPosition.coords.longitude}</Text>
-        <TouchableOpacity onPress={toggleRecord}>
-          { isRecording ? 'Stop' : 'Record' }
+        <Text>00:00</Text>
+        <Text>{currentPosition.coords.longitude}</Text>
+        <TouchableOpacity onPress={onToggleRecord}>
+          <Text>{ isRecording ? 'Stop' : 'Record' }</Text>
         </TouchableOpacity>
       </>
     );
@@ -24,15 +23,15 @@ const DashboardInternals = ({ currentPosition, isRecording, toggleRecord }) => {
 
 
 DashboardInternals.propTypes = {
-  currentPosition: obj,
+  currentPosition: object,
   isRecording: bool,
-  toggleRecord: func,
+  onToggleRecord: func,
 };
 
 DashboardInternals.defaultProps = {
-  currentPosition: {},
+  currentPosition: null,
   isRecording: false,
-  toggleRecord: () => { },
+  onToggleRecord: () => { },
 };
 
 export default DashboardInternals;

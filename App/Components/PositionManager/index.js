@@ -18,7 +18,7 @@ export default class PositionManager extends Component {
     this.positionWatchID = Geolocation.watchPosition(position => {
       console.log('watchPosition', position)
       this.setState({position});
-      this.props.getCurrentPosition(position);
+      this.props.onChangePosition(position);
     });
   }
 
@@ -32,6 +32,6 @@ export default class PositionManager extends Component {
 }
 
 PositionManager.propTypes = {
-  getCurrentPosition: func,
+  onChangePosition: func,
 }
 
