@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import mapboxApiKey from '../../config';
 import Geolocation from '@react-native-community/geolocation';
-
+import styles from './styles';
 
 const { height, width } = Dimensions.get('window');
-MapboxGL.setAccessToken(mapboxApiKey);
 
+MapboxGL.setAccessToken(mapboxApiKey);
 
 export default class Map extends Component {
   state = {
@@ -81,20 +81,3 @@ export default class Map extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  container: {
-    height: height - 100,
-    width,
-    backgroundColor: 'red',
-  },
-  map: {
-    flex: 1,
-  },
-});

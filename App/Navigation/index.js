@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from 'react-navigation';
 
-import HomeScreen from '../Screens/HomeScreen';
-import SettingsScreen from '../Screens/SettingsScreen';
+import HomeScreen from '../screens/HomeScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
+import s from '../styles';
 
 const TabNavigator = createBottomTabNavigator({
   Home: HomeScreen,
@@ -30,7 +31,7 @@ const TabNavigator = createBottomTabNavigator({
   //   },
   // }),
   tabBarOptions: {
-    activeTintColor: 'tomato',
+    activeTintColor: s.colors.fg,
     inactiveTintColor: 'gray',
   },
 });

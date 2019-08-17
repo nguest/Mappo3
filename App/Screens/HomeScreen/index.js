@@ -1,12 +1,16 @@
 import React, { PureComponent } from 'react';
-import { View, Text } from 'react-native';
-import MapView from '../../Components/MapView';
+import { View } from 'react-native';
+import MapView from '../../components/MapView';
+import Dashboard from '../../components/Dashboard';
+
+import s from '../../styles';
 
 export default class HomeScreen extends PureComponent {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={[s.align.vCenter, s.align.hCenter]}>
         <MapView />
+        <Dashboard />
       </View>
     );
   }
