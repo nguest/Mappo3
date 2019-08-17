@@ -25,43 +25,43 @@ export default class Map extends Component {
     speed: 0.0,
   };
 
-  componentDidMount() {
-    MapboxGL.setTelemetryEnabled(false);
-    MapboxGL.locationManager.start();
-    Geolocation.getCurrentPosition(
-      position => {
-        const location = JSON.stringify(position);
-        console.log(location)
-        this.setState({ location });
-      },
-      error => console.log(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
-    this.positionWatchID = Geolocation.watchPosition(position => {
-      this.setState({position});
-    });
-  }
+  // componentDidMount() {
+  //   MapboxGL.setTelemetryEnabled(false);
+  //   MapboxGL.locationManager.start();
+  //   Geolocation.getCurrentPosition(
+  //     position => {
+  //       const location = JSON.stringify(position);
+  //       console.log(location)
+  //       this.setState({ location });
+  //     },
+  //     error => console.log(error.message),
+  //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+  //   );
+  //   this.positionWatchID = Geolocation.watchPosition(position => {
+  //     this.setState({position});
+  //   });
+  // }
 
-  componentWillUnmount() {
-    this.positionWatchID != null && Geolocation.clearWatch(this.watchID);
-  }
+  // componentWillUnmount() {
+  //   this.positionWatchID != null && Geolocation.clearWatch(this.watchID);
+  // }
 
-  onUserLocationUpdate = (location) => {
-    console.log({location})
-    const { latitude, longitude, altitude, heading, accuracy, speed } = location.coords;
-    this.setState({
-      timestamp: location.timestamp,
-      latitude,
-      longitude,
-      altitude,
-      heading,
-      accuracy,
-      speed,
-    });
-  }
+  // onUserLocationUpdate = (location) => {
+  //   console.log({location})
+  //   const { latitude, longitude, altitude, heading, accuracy, speed } = location.coords;
+  //   this.setState({
+  //     timestamp: location.timestamp,
+  //     latitude,
+  //     longitude,
+  //     altitude,
+  //     heading,
+  //     accuracy,
+  //     speed,
+  //   });
+  // }
 
   render() {
-    console.log({ p: this.state.position })
+    console.log({ p: this.props.currentPosition })
     //const x = Geolocation.watchPosition(this.onUserLocationUpdate);
 
     return (
@@ -70,7 +70,7 @@ export default class Map extends Component {
           <MapboxGL.MapView
             zoomLevel={10}
             showUserLocation
-            onUserLocationUpdate={this.onUserLocationUpdate}
+            //onUserLocationUpdate={this.onUserLocationUpdate}
             //userTrackingMode={MapboxGL.UserTrackingModes.Follow}
             style={styles.map}>
             <MapboxGL.Camera followZoomLevel={12} followUserLocation />
