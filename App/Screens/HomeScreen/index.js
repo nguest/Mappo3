@@ -9,6 +9,7 @@ import s from '../../styles';
 export default class HomeScreen extends PureComponent {
   state = {
     currentPosition: {},
+    isRecording: false,
   }
 
   getCurrentPosition = (position) => {
@@ -16,11 +17,29 @@ export default class HomeScreen extends PureComponent {
     this.setState({ currentPosition: position })
   }
 
+  toggleRecord = () => {
+    this.setState(prevState = {
+      isRecording: !prevState.isRecording,
+    }, () => {
+      if (this.state.isRecording) {
+        this.recordPosition(this.state.currentPosition);
+      }
+    })
+  }
+
+  recordPosition = (position) => {
+    // save position
+  }
+
   render() {
+    const { currentPosition, isRecording } = this.state;
     return (
       <View style={[s.align.vCenter, s.align.hCenter]}>
-        <MapView currentPosition={this.state.currentPosition} />
-        <Dashboard currentPosition={this.state.currentPosition} />
+        <MapView currentPosition={currentPosition} />
+        <Dashboard
+          currentPosition={currentPosition}
+          isRecording={isRecording}
+          toggleRecord={this.toggleRecord} />
         <PositionManager getCurrentPosition={this.getCurrentPosition}/>
       </View>
     );
