@@ -16,7 +16,7 @@ export default class PositionManager extends Component {
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
     this.positionWatchID = Geolocation.watchPosition(position => {
-      console.log('watchPosition', position)
+      // console.log('watchPosition', position)
       this.setState({position});
       this.props.onChangePosition(position);
     });

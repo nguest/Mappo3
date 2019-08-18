@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 30,
     left: 10,
-    height: 30,
     backgroundColor: s.colors.bg,
     borderWidth: 2,
     borderStyle: 'solid',

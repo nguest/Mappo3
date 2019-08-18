@@ -6,26 +6,41 @@ import PositionManager from '../../components/PositionManager';
 
 import s from '../../styles';
 import { saveNewTrack, getTrack, saveNewPointTotTrack } from '../../helpers/storageManager';
-import { simplifyPosition } from '../../helpers/pointsManager';
+import { simplifyPosition, filterPoint } from '../../helpers/pointsManager';
 
 export default class HomeScreen extends PureComponent {
-  state = {
-    currentPosition: null,
-    currentTrack: [],
-    isRecording: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPosition: null,
+      currentTrack: [],
+      isRecording: false,
+    }
   }
 
   onChangePosition = (position) => {
-    console.log({ homescreen: position })
-    this.setState(prevState => ({ 
-      currentPosition: position,
-      currentTrack: prevState.isRecording 
-        ? [...prevState.currentTrack, simplifyPosition(position)]
-        : prevState.currentTrack,
-    }));
+    // console.log({ homescreen: position })
+
+    this.setState(prevState => {
+      const simplifiedPosition = simplifyPosition(position);
+      let filteredPosition = simplifiedPosition;
+      if (prevState.currentTrack.length)
+        filteredPosition = filterPoint(simplifiedPosition, prevState.currentTrack[prevState.currentTrack.length - 1])
+
+      const currentTrack = prevState.isRecording && filteredPosition
+        ? [...prevState.currentTrack, filteredPosition]
+        : prevState.currentTrack;
+
+      return {
+        currentPosition: position,
+        currentTrack,
+      }
+
+    });
   };
 
   onToggleRecord = () => {
+   
     this.setState((prevState) => {
       if (!prevState.currentTrackId) {
         currentTrackId = saveNewTrack({
@@ -39,24 +54,26 @@ export default class HomeScreen extends PureComponent {
     });
   }
 
-
   recordPosition = (position) => {
     // save position
   }
 
   render() {
     const { currentPosition, currentTrack, isRecording } = this.state;
-    console.log({currentTrack: this.state.currentTrack})
+    console.log({ currentTrack: this.state.currentTrack })
 
-    const storedTrack = getTrack({ id: this.state.currentTrackId })
-    console.log({ storedTrack })
+    // const storedTrack = getTrack({ id: this.state.currentTrackId })
+    // console.log({ storedTrack })
 
     return (
       <View style={[s.align.vCenter, s.align.hCenter]}>
         <MapView
-          currentTrack={currentTrack}/>
+          currentTrack={currentTrack}
+          isRecording={isRecording}
+        />
         <Dashboard
           currentPosition={currentPosition}
+          currentTrack={currentTrack}
           isRecording={isRecording}
           onToggleRecord={this.onToggleRecord} />
         <PositionManager onChangePosition={this.onChangePosition}/>

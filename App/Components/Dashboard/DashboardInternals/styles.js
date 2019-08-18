@@ -1,11 +1,16 @@
-import { Dimensions, StyleSheet } from 'react-native';
-import s from '../../styles';
+import { StyleSheet } from 'react-native';
+import s from '../../../styles';
 
 const styles = StyleSheet.create({
   page: {
     ...s.align.vCenter,
     ...s.align.hCenter,
     backgroundColor: '#46fd89',
+  },
+
+  recordButton: {
+    padding: 10,
+    backgroundColor: '#468889',
   },
 
   container: {
@@ -16,7 +21,7 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     height: 500,
-    width: Dimensions.get('window').width,
+    width: 300,
   },
 });
 
