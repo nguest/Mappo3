@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { object } from 'prop-types';
+import { array, object } from 'prop-types';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {
   Dimensions,
@@ -15,11 +15,9 @@ const { height, width } = Dimensions.get('window');
 MapboxGL.setAccessToken(mapboxApiKey);
 
 const renderTrack = (currentTrack) => {
-  if (!currentTrack) return null;
+  if (!currentTrack || currentTrack.length < 2) return null;
   const parsedCoords = currentTrack.map((point) => [point.coords.longitude, point.coords.latitude]);
-  const lineString = makeLineString(parsedCoords);
-
-
+  const lineString = makeLineString(parsedCoords, { name: 'line 1' });
 
   return (
     <MapboxGL.ShapeSource id="routeSource" shape={lineString}>
@@ -28,14 +26,14 @@ const renderTrack = (currentTrack) => {
         style={{
           lineColor: '#ff0000',
           lineCap: MapboxGL.LineJoin.Round,
-          lineWidth: 3,
+          lineWidth: 10,
           lineOpacity: 0.84,
         }}
-        belowLayerID="originInnerCircle"
+        // belowLayerID="originInnerCircle"
       />
     </MapboxGL.ShapeSource>
   );
-}
+};
 
 export default class Map extends Component {
   componentDidMount() {
@@ -44,8 +42,6 @@ export default class Map extends Component {
   }
 
   render() {
-    console.log({ p: this.props.currentPosition });
-
     return (
       <SafeAreaView style={styles.page}>
         <View style={styles.container}>
@@ -68,4 +64,5 @@ export default class Map extends Component {
 
 Map.propTypes = {
   currentPosition: object,
+  currentTrack: array,
 };

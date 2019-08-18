@@ -55,7 +55,7 @@ export default class HomeScreen extends PureComponent {
   }
 
   render() {
-    const { currentPosition, isRecording } = this.state;
+    const { currentPosition, currentTrack, isRecording } = this.state;
     console.log({currentTrack: this.state.currentTrack})
 
     const storedTrack = getTrack({ id: this.state.currentTrackId })
