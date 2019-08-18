@@ -5,7 +5,7 @@ const storeData = async ({ id, data }) => {
   try {
     await AsyncStorage.setItem(id, JSON.stringify(data));
   } catch (e) {
-    console.log('error saving!', e);
+    console.warn('error saving!', e);
   }
 };
 
@@ -15,7 +15,7 @@ export const saveNewTrack = ({ initialPosition }) => {
   return id;
 };
 
-export const updateTrack = ({ id, data }) => {
+export const saveNewPointToTrack = ({ id, data }) => {
   storeData({ id, data });
 };
 
@@ -25,6 +25,6 @@ export const getTrack = async ({ id }) => {
     if (track !== null) return track;
     return null;
   } catch (e) {
-    console.log('error saving!', e);
+    console.warn('error saving!', e);
   }
 };

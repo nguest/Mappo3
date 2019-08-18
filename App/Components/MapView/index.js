@@ -16,8 +16,8 @@ MapboxGL.setAccessToken(mapboxApiKey);
 
 const renderTrack = (currentTrack) => {
   if (!currentTrack || currentTrack.length < 2) return null;
-  const parsedCoords = currentTrack.map((point) => [point.coords.longitude, point.coords.latitude]);
-  const lineString = makeLineString(parsedCoords, { name: 'line 1' });
+  const parsedCoords = currentTrack.map((point) => [point[0], point[1]]);
+  const lineString = makeLineString(parsedCoords, { name: 'track' });
 
   return (
     <MapboxGL.ShapeSource id="routeSource" shape={lineString}>
@@ -35,6 +35,19 @@ const renderTrack = (currentTrack) => {
   );
 };
 
+const renderMarkers = (currentTrack) => {
+  if (!currentTrack || !currentTrack.length) return null;
+
+  return (
+    <MapboxGL.PointAnnotation
+      key="track-start"
+      id="track-start"
+      title="Start"
+      coordinate={[currentTrack[0][0], currentTrack[0][1]]}
+    />
+  );
+};
+
 export default class Map extends Component {
   componentDidMount() {
     MapboxGL.setTelemetryEnabled(false);
@@ -42,6 +55,7 @@ export default class Map extends Component {
   }
 
   render() {
+    const { currentTrack } = this.props;
     return (
       <SafeAreaView style={styles.page}>
         <View style={styles.container}>
@@ -54,7 +68,8 @@ export default class Map extends Component {
           >
             <MapboxGL.Camera followZoomLevel={10} followUserLocation />
             <MapboxGL.UserLocation />
-            { renderTrack(this.props.currentTrack) }
+            { renderTrack(currentTrack) }
+            { renderMarkers(currentTrack) }
           </MapboxGL.MapView>
         </View>
       </SafeAreaView>
@@ -63,6 +78,5 @@ export default class Map extends Component {
 }
 
 Map.propTypes = {
-  currentPosition: object,
   currentTrack: array,
 };
