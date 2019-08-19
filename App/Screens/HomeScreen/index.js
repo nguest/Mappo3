@@ -35,16 +35,19 @@ export default class HomeScreen extends PureComponent {
         currentPosition: position,
         currentTrack,
       }
-
     });
   };
 
+  onFinishCurrentTrack = () => {
+    console.log('finished!');
+    this.setState({ currentTrack: [] })
+  }
+
   onToggleRecord = () => {
-   
     this.setState((prevState) => {
       if (!prevState.currentTrackId) {
         currentTrackId = saveNewTrack({
-          initialPosition: simplifyPosition(this.state.currentPosition),
+          initialPosition: simplifyPosition(prevState.currentPosition),
         });
       }
       return {
@@ -74,6 +77,7 @@ export default class HomeScreen extends PureComponent {
         <Dashboard
           currentPosition={currentPosition}
           currentTrack={currentTrack}
+          onFinishCurrentTrack={this.onFinishCurrentTrack}
           isRecording={isRecording}
           onToggleRecord={this.onToggleRecord} />
         <PositionManager onChangePosition={this.onChangePosition}/>

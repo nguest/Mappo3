@@ -4,6 +4,7 @@ import { differenceInSeconds } from 'date-fns';
 
 export const limits = {
   MAX_SPEED: 200,
+  MAX_ALTITUDE: 5000,
 };
 
 export const simplifyPosition = (position) => ({
@@ -28,7 +29,7 @@ export const distanceBetweenPoints = (point1, point2) => {
 
 
 export const filterPoint = (currPoint, prevPoint) => {
-  if (!prevPoint) return null;
+  if (!prevPoint || currPoint.alt > limits.MAX_ALTITUDE) return null;
   const elapsedTime = differenceInSeconds(currPoint.ts, prevPoint.ts);
   const elapsedDistance = distanceBetweenPoints(currPoint, prevPoint);
   const velocity = elapsedDistance / (elapsedTime / 3600);
