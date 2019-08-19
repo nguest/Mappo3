@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   array,
   bool,
@@ -27,7 +27,10 @@ const Dashboard = ({
   return (
     <View style={{ ...styles.dashboard, width: width - 240 }}>
       <DashboardInternals
-        distanceFromStart={distanceBetweenPoints(currentTrack[0], currentTrack[currentTrack.length - 1])}
+        distanceFromStart={distanceBetweenPoints(
+          currentTrack[0],
+          currentTrack[currentTrack.length - 1],
+        )}
         currentPosition={currentPosition}
         elapsedTime={getElapsedTime(currentTrack)}
         isRecording={isRecording}

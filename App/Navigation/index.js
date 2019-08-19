@@ -2,15 +2,17 @@ import { createBottomTabNavigator } from 'react-navigation';
 
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import TracksScreen from '../screens/TracksScreen';
 
 import s from '../styles';
 
 const TabNavigator = createBottomTabNavigator({
   Home: HomeScreen,
   Settings: SettingsScreen,
+  Tracks: TracksScreen,
 },
 {
-  initialRouteName: 'Home',
+  initialRouteName: 'Tracks',
 
   // defaultNavigationOptions: ({ navigation }) => ({
   //   tabBarIcon: ({ focused, horizontal, tintColor }) => {

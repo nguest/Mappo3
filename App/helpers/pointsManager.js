@@ -23,7 +23,7 @@ export const distanceBetweenPoints = (point1, point2) => {
   const from = point([point1.lon, point1.lat]);
   const to = point([point2.lon, point2.lat]);
   const options = { units: 'kilometers' };
-  console.log({ d: distance(from, to, options) })
+  console.log({ d: distance(from, to, options) });
   return distance(from, to, options);
 };
 
