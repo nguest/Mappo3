@@ -12,7 +12,8 @@ module.exports = {
       "sourceType": "module"
   },
   "plugins": [
-      "react"
+      "react",
+      "babel"
   ],
   "rules": {
       "react/jsx-filename-extension": "off",

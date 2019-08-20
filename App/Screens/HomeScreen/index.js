@@ -9,13 +9,10 @@ import { saveNewTrack, getTrack, updateSavedTrack } from '../../helpers/storageM
 import { simplifyPosition, filterPoint } from '../../helpers/pointsManager';
 
 export default class HomeScreen extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPosition: null,
-      currentTrack: [],
-      isRecording: false,
-    }
+  state = {
+    currentPosition: null,
+    currentTrack: [],
+    isRecording: false,
   }
 
   onChangePosition = (position) => {
@@ -62,15 +59,11 @@ export default class HomeScreen extends PureComponent {
     if (this.state.currentTrack.length % 5 === 0) {
       updateSavedTrack({ id: currentTrackId, track: [...this.state.currentTrack, position] })
     }
-    // save position
   }
 
   render() {
     const { currentPosition, currentTrack, isRecording } = this.state;
     console.log({ currentTrack: this.state.currentTrack })
-
-    // const storedTrack = getTrack({ id: this.state.currentTrackId })
-    // console.log({ storedTrack })
 
     return (
       <View style={[s.align.vCenter, s.align.hCenter]}>

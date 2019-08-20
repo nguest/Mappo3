@@ -1,5 +1,5 @@
 import React from 'react';
-import { array } from 'prop-types';
+import { array, func, string } from 'prop-types';
 import { format } from 'date-fns';
 import {
   Text,
@@ -14,14 +14,16 @@ const ListItem = ({ data, id, removeItem }) => (
     <Text>
       { format(data[0].ts, 'ddd DD/MM/YYYY HH:mm') }
     </Text>
-    <TouchableOpacity onPress={() => removeItem({id})}>
+    <TouchableOpacity onPress={() => removeItem({ id })}>
       <Text>DEL</Text>
     </TouchableOpacity>
   </View>
 );
 
 ListItem.propTypes = {
-  item: array.isRequired,
+  data: array.isRequired,
+  id: string.isRequired,
+  removeItem: func.isRequired,
 };
 
 export default ListItem;
