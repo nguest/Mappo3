@@ -1,29 +1,42 @@
-import React, { useRef, useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, SafeAreaView, Text } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
+
 import TrackList from '../../components/TrackList';
-import { getAllTracks } from '../../helpers/storageManager';
+import { getAllTracks, removeTrack as removeStoredTrack } from '../../helpers/storageManager';
 import s from '../../styles';
 
-const TracksScreen = () => {
-  const didMountRef = useRef(false);
 
+const TracksScreen = ({ isFocused }) => {
+  //const didMountRef = useRef(false);
+  console.log({ isFocused })
   const [tracks, setTracks] = useState([]);
 
-  if (!didMountRef.current) {
-    getAllTracks()
-      .then((items) => {
-        Promise.all(items)
-          .then((resolvedItems) => setTracks(resolvedItems));
-      });
-    didMountRef.current = true;
-  }
+  useEffect(() => {
+    if (isFocused) {
+      getAllTracks()
+        .then((items) => {
+          Promise.all(items)
+            .then((resolvedItems) => {
+              setTracks(resolvedItems);
+            });
+        });
+    }
+  }, [isFocused]);
+
+  const removeTrack = ({ id }) => {
+    const newTracks = tracks.filter((track) => (track.id !== id));
+    setTracks(newTracks);
+    removeStoredTrack({ id });
+  };
+
 
   return (
-    <View style={[s.align.vCenter, s.align.hCenter]}>
+    <SafeAreaView style={[s.align.vCenter, s.align.hCenter]}>
       <Text>Tracks Screen</Text>
-      <TrackList tracks={tracks} />
-    </View>
+      <TrackList tracks={tracks} removeTrack={removeTrack} />
+    </SafeAreaView>
   );
 }
 
-export default TracksScreen;
+export default withNavigationFocus(TracksScreen);

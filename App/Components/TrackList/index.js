@@ -1,26 +1,29 @@
 import React from 'react';
+import { array, func } from 'prop-types';
 import {
   FlatList,
-  ScrollView,
-  Text,
   View,
 } from 'react-native';
 
 import ListItem from './ListItem';
 
-const renderTracks = (tracks) => (
-  <FlatList
-    data={tracks}
-    renderItem={({ item, idx }) => <ListItem key={idx} item={JSON.parse(item)} />}
-  />
+import styles from './styles';
+
+const TrackList = ({ tracks, removeTrack }) => (
+  <View style={styles.list}>
+    <FlatList
+      data={tracks}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({ item }) => (
+        <ListItem data={JSON.parse(item.data)} id={item.id} removeItem={removeTrack} />
+      )}
+    />
+  </View>
 );
 
-const TrackList = ({ tracks }) => {
-  return (
-    <View styles={{flex:1}}>
-      { renderTracks(tracks) }
-    </View>
-  );
+TrackList.propTypes = {
+  removeTrack: func.isRequired,
+  tracks: array.isRequired,
 };
 
 export default TrackList;

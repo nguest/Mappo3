@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { bool, func, object } from 'prop-types';
+import { any, bool, func, object } from 'prop-types';
 
 import {
   Text,
@@ -32,7 +32,7 @@ const DashboardInternals = ({
 
 DashboardInternals.propTypes = {
   currentPosition: object,
-  elapsedTime: object,
+  elapsedTime: any,
   isRecording: bool,
   onToggleRecord: func,
 };

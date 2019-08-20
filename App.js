@@ -5,6 +5,9 @@ import AppNavigator from './app/navigation';
 
 const AppContainer = createAppContainer(AppNavigator);
 
-const App = () => <AppContainer />;
+const App = () => {
+  console.disableYellowBox = true;
+  return <AppContainer />;
+};
 
 export default App;
