@@ -7,7 +7,7 @@ import { getAllTracks, removeTrack as removeStoredTrack } from '../../helpers/st
 import s from '../../styles';
 
 
-const TracksScreen = ({ isFocused }) => {
+const TracksScreen = ({ isFocused, navigation }) => {
   //const didMountRef = useRef(false);
   console.log({ isFocused })
   const [tracks, setTracks] = useState([]);
@@ -34,7 +34,7 @@ const TracksScreen = ({ isFocused }) => {
   return (
     <SafeAreaView style={[s.align.vCenter, s.align.hCenter]}>
       <Text>Tracks Screen</Text>
-      <TrackList tracks={tracks} removeTrack={removeTrack} />
+      <TrackList navigation={navigation} tracks={tracks} removeTrack={removeTrack} />
     </SafeAreaView>
   );
 }

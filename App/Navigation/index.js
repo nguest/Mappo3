@@ -1,15 +1,25 @@
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createDrawerNavigator, createStackNavigator } from 'react-navigation';
 
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TracksScreen from '../screens/TracksScreen';
 
 import s from '../styles';
+import SingleTrackScreen from '../screens/SingleTrackScreen';
+
+
+const TracksNavigator = createStackNavigator({
+  Tracks: TracksScreen,
+  SingleTrack: SingleTrackScreen,
+},
+{
+  initialRouteName: 'Tracks',
+});
 
 const TabNavigator = createBottomTabNavigator({
   Home: HomeScreen,
   Settings: SettingsScreen,
-  Tracks: TracksScreen,
+  Tracks: { screen: TracksNavigator },
 },
 {
   initialRouteName: 'Tracks',

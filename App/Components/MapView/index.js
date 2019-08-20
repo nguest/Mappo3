@@ -24,7 +24,7 @@ const renderTrack = (currentTrack) => {
           lineWidth: 10,
           lineOpacity: 0.84,
         }}
-        // belowLayerID="originInnerCircle"
+        // belowLayerID="coveringId"
       />
     </MapboxGL.ShapeSource>
   );
@@ -35,8 +35,8 @@ const renderMarkers = (currentTrack) => {
 
   return (
     <MapboxGL.PointAnnotation
-      key="track-start"
-      id="track-start"
+      key="trackStart"
+      id="trackStart"
       title="Start"
       coordinate={[currentTrack[0].lon, currentTrack[0].lat]}
     />
@@ -63,8 +63,9 @@ export default class Map extends Component {
             style={styles.map}
           >
             <MapboxGL.Camera
+              zoomLevel={8}
               followZoomLevel={8}
-              followUserLocation={isRecording}
+              followUserLocation={isRecording || !currentTrack}
             />
             <MapboxGL.UserLocation />
             { renderTrack(currentTrack) }

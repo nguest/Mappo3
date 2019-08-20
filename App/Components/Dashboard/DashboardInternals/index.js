@@ -1,6 +1,8 @@
 
 import React from 'react';
-import { any, bool, func, object } from 'prop-types';
+import {
+  any, bool, func, object,
+} from 'prop-types';
 
 import {
   Text,
