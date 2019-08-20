@@ -15,7 +15,7 @@ const TrackList = ({ tracks, removeTrack }) => (
       data={tracks}
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => (
-        <ListItem data={JSON.parse(item.data)} id={item.id} removeItem={removeTrack} />
+        <ListItem item={item} removeItem={removeTrack} />
       )}
     />
   </View>

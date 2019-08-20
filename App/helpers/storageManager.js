@@ -60,3 +60,7 @@ export const getAllTracks = async () => {
   const tracks = await keys.map((id) => getTrack({ id }));
   return tracks;
 };
+
+export const clearAsyncStorage = async () => {
+  AsyncStorage.clear();
+};

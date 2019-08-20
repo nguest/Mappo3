@@ -12,7 +12,10 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'space-between',
   },
-
+  button: {
+    backgroundColor: '#ff0000',
+    color: '#ffffff',
+  },
 });
 
 export default styles;

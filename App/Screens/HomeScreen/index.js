@@ -5,8 +5,8 @@ import Dashboard from '../../components/Dashboard';
 import PositionManager from '../../components/PositionManager';
 
 import s from '../../styles';
-import { saveNewTrack, getTrack, updateSavedTrack } from '../../helpers/storageManager';
-import { simplifyPosition, filterPoint } from '../../helpers/pointsManager';
+import { clearAsyncStorage, saveNewTrack, getTrack, updateSavedTrack } from '../../helpers/storageManager';
+import { decorateTrack, simplifyPosition, filterPoint } from '../../helpers/pointsManager';
 
 export default class HomeScreen extends PureComponent {
   state = {
@@ -38,7 +38,9 @@ export default class HomeScreen extends PureComponent {
 
   onFinishCurrentTrack = () => {
     console.log('finished!');
-    this.setState({ currentTrack: [] })
+    const { currentTrack, currentTrackId } = this.state;
+    updateSavedTrack({ id: currentTrackId, track: decorateTrack({ track: currentTrack }) })
+    this.setState({ currentTrack: [], currentTrackId: null })
   }
 
   onToggleRecord = () => {
@@ -62,6 +64,7 @@ export default class HomeScreen extends PureComponent {
   }
 
   render() {
+    //clearAsyncStorage()
     const { currentPosition, currentTrack, isRecording } = this.state;
     console.log({ currentTrack: this.state.currentTrack })
 
