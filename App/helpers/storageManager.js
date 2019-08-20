@@ -17,17 +17,13 @@ export const saveNewTrack = ({ initialPosition }) => {
 
 export const updateSavedTrack = ({ id, track }) => {
   console.log('update', { track, id })
-  storeData({ id, data: track });
-};
-
-export const saveNewPointToTrack = ({ id, data }) => {
-  storeData({ id, data });
+  storeData({ id, data: { ...track, id } });
 };
 
 export const getTrack = async ({ id }) => {
   try {
     const track = await AsyncStorage.getItem(id);
-    if (track !== null) return { id, data: track };
+    if (track !== null) return track;
     return null;
   } catch (e) {
     console.warn('error getting!', e);
@@ -41,7 +37,7 @@ export const removeTrack = async ({ id }) => {
   } catch (e) {
     console.warn('error removing!', e);
   }
-}
+};
 
 export const getAllStorageKeys = async () => {
   let keys = [];

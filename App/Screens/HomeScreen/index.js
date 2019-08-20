@@ -59,7 +59,7 @@ export default class HomeScreen extends PureComponent {
 
   saveTrack = (position) => {
     if (this.state.currentTrack.length % 5 === 0) {
-      updateSavedTrack({ id: currentTrackId, track: [...this.state.currentTrack, position] })
+      updateSavedTrack({ id: currentTrackId, track: { id: currentTrackId, data: [...this.state.currentTrack, position] }})
     }
   }
 

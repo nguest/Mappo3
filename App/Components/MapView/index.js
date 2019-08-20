@@ -64,7 +64,7 @@ export default class Map extends Component {
           >
             <MapboxGL.Camera
               followZoomLevel={8}
-              followUserLocation={!currentTrack.length || isRecording}
+              followUserLocation={isRecording}
             />
             <MapboxGL.UserLocation />
             { renderTrack(currentTrack) }

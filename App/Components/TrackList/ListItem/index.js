@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, object } from 'prop-types';
+import { func, string } from 'prop-types';
 import { format } from 'date-fns';
 import {
   Text,
@@ -11,9 +11,8 @@ import styles from './styles';
 
 const ListItem = ({ item, removeItem }) => {
   const {
-    data, id, elapsedTime, startToEndDistance,
-  } = item;
-  console.log({ item })
+    data, id, elapsedTime, startEndDistance,
+  } = JSON.parse(item);
 
   return (
     <View style={styles.item}>
@@ -24,7 +23,7 @@ const ListItem = ({ item, removeItem }) => {
         { `${elapsedTime} s` }
       </Text>
       <Text>
-        { `${startToEndDistance && startToEndDistance.toFixed(1)} km` }
+        { `${startEndDistance && startEndDistance.toFixed(1)} km` }
       </Text>
       <TouchableOpacity
         onPress={() => removeItem({ id })}
@@ -37,7 +36,7 @@ const ListItem = ({ item, removeItem }) => {
 };
 
 ListItem.propTypes = {
-  item: object.isRequired,
+  item: string.isRequired,
   removeItem: func.isRequired,
 };
 
