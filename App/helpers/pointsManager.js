@@ -38,10 +38,9 @@ export const filterPoint = (currPoint, prevPoint) => {
 export const decorateTrack = ({ track }) => {
   const decoratedTrack = { data: track };
   const totalPoints = track.length;
-  const elapsedTime = differenceInSeconds(track[0].ts, track[totalPoints - 1].ts);
+  const elapsedTime = differenceInSeconds(track[totalPoints - 1].ts, track[0].ts);
   const startEndDistance = distanceBetweenPoints(track[0], track[totalPoints - 1]);
   decoratedTrack.elapsedTime = elapsedTime;
   decoratedTrack.startEndDistance = startEndDistance;
-  console.log({decoratedTrack})
   return decoratedTrack;
 };

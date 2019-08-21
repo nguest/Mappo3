@@ -2,14 +2,17 @@ import { StyleSheet } from 'react-native';
 import s from '../../../styles';
 
 const styles = StyleSheet.create({
-  item: {
-    ...s.align.hCenter,
+  container: {
     backgroundColor: '#46fd89',
     borderWidth: 1,
     borderColor: '#dddddd',
-    flex: 1,
-    flexDirection: 'row',
+    padding: 10,
     height: 40,
+    width: '100%',
+  },
+  item: {
+    ...s.align.hCenter,
+    flexDirection: 'row',
     justifyContent: 'space-between',
   },
   button: {

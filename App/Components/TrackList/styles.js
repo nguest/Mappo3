@@ -9,7 +9,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
   },
-
+  rowUnderlay: {
+    backgroundColor: '#ff44ff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 40,
+  },
 });
 
 export default styles;

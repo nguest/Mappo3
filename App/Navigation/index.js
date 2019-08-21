@@ -1,16 +1,31 @@
 import { createBottomTabNavigator, createDrawerNavigator, createStackNavigator } from 'react-navigation';
+import { format } from 'date-fns';
 
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TracksScreen from '../screens/TracksScreen';
+
 
 import s from '../styles';
 import SingleTrackScreen from '../screens/SingleTrackScreen';
 
 
 const TracksNavigator = createStackNavigator({
-  Tracks: TracksScreen,
-  SingleTrack: SingleTrackScreen,
+  Tracks: {
+    screen: TracksScreen,
+    navigationOptions: () => ({
+      title: 'Tracks',
+    }),
+  },
+  SingleTrack: {
+    screen: SingleTrackScreen,
+    navigationOptions: ({ navigation }) => {
+      const track = navigation.getParam('track', 'Flight');
+      return {
+        title: `Flight on ${format(track.data[0].ts, 'DD/MM/YYYY')}`,
+      }
+    },
+  },
 },
 {
   initialRouteName: 'Tracks',

@@ -40,6 +40,7 @@ export default class HomeScreen extends PureComponent {
     console.log('finished!');
     const { currentTrack, currentTrackId } = this.state;
     updateSavedTrack({ id: currentTrackId, track: decorateTrack({ track: currentTrack }) })
+    this.props.navigation.navigate('SingleTrack', { id: currentTrackId })
     this.setState({ currentTrack: [], currentTrackId: null })
   }
 
