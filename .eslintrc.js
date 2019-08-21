@@ -19,5 +19,6 @@ module.exports = {
       "react/jsx-filename-extension": "off",
       "react/require-default": "off",
       "react/forbid-prop-types": "off",
+      "object-curly-newline": "off",
   },
 };

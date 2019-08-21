@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { array, bool } from 'prop-types';
+import { array, bool, number } from 'prop-types';
+import { SafeAreaView, View } from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
-import {
-  SafeAreaView,
-  View,
-} from 'react-native';
 import { lineString as makeLineString } from '@turf/helpers';
 import mapboxApiKey from '../../config';
+
 import styles from './styles';
 
 const renderTrack = (currentTrack) => {
@@ -48,26 +46,27 @@ export default class Map extends Component {
     MapboxGL.setAccessToken(mapboxApiKey);
     MapboxGL.setTelemetryEnabled(false);
     MapboxGL.locationManager.start();
-    MapboxGL.fly
   }
 
   render() {
     const { centerCoordinate, currentTrack, isRecording, zoomLevel } = this.props;
-    console.log({ centerCoordinate })
+    console.log({ centerCoordinate });
+    console.log({ style: MapboxGL.StyleURL })
     return (
       <SafeAreaView style={styles.page}>
         <View style={styles.container}>
           <MapboxGL.MapView
             zoomLevel={8}
             showUserLocation
+            style={MapboxGL.StyleURL.Outdoors}
             // onUserLocationUpdate={this.onUserLocationUpdate}
             // userTrackingMode={MapboxGL.UserTrackingModes.Follow}
             style={styles.map}
           >
             <MapboxGL.Camera
               centerCoordinate={centerCoordinate}
-              zoomLevel={zoomLevel || 14}
-              followZoomLevel={8}
+              zoomLevel={zoomLevel}
+              followZoomLevel={14}
               followUserLocation={isRecording || !currentTrack}
             />
             <MapboxGL.UserLocation />
@@ -80,7 +79,14 @@ export default class Map extends Component {
   }
 }
 
+Map.defaultProps = {
+  currentTrack: [],
+  zoomLevel: 14,
+};
+
 Map.propTypes = {
+  centerCoordinate: array.isRequired,
   currentTrack: array,
-  isRecording: bool,
+  isRecording: bool.isRequired,
+  zoomLevel: number,
 };

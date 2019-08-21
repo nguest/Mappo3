@@ -42,5 +42,6 @@ export const decorateTrack = ({ track }) => {
   const startEndDistance = distanceBetweenPoints(track[0], track[totalPoints - 1]);
   decoratedTrack.elapsedTime = elapsedTime;
   decoratedTrack.startEndDistance = startEndDistance;
+  decoratedTrack.date = track[0].ts;
   return decoratedTrack;
 };
