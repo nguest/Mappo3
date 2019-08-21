@@ -72,6 +72,7 @@ export default class HomeScreen extends PureComponent {
     return (
       <View style={[s.align.vCenter, s.align.hCenter]}>
         <MapView
+          centerCoordinate={currentPosition && [currentPosition.coords.longitude, currentPosition.coords.latitude]}
           currentTrack={currentTrack}
           isRecording={isRecording}
         />

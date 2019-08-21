@@ -48,10 +48,12 @@ export default class Map extends Component {
     MapboxGL.setAccessToken(mapboxApiKey);
     MapboxGL.setTelemetryEnabled(false);
     MapboxGL.locationManager.start();
+    MapboxGL.fly
   }
 
   render() {
-    const { currentTrack, isRecording } = this.props;
+    const { centerCoordinate, currentTrack, isRecording, zoomLevel } = this.props;
+    console.log({ centerCoordinate })
     return (
       <SafeAreaView style={styles.page}>
         <View style={styles.container}>
@@ -63,7 +65,8 @@ export default class Map extends Component {
             style={styles.map}
           >
             <MapboxGL.Camera
-              zoomLevel={8}
+              centerCoordinate={centerCoordinate}
+              zoomLevel={zoomLevel || 14}
               followZoomLevel={8}
               followUserLocation={isRecording || !currentTrack}
             />
