@@ -16,10 +16,10 @@ const TrackList = ({ navigation, tracks, removeTrack }) => (
     { console.log({tracks})}
     <SwipeListView
       data={tracks}
-      keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => (
         <ListItem
           item={item}
+          key={item.id}
           onPressItem={({ id }) => navigation.navigate(
             'SingleTrack',
             { track: tracks.find((track) => track.id === id) },
