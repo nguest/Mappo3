@@ -1,53 +1,44 @@
 import React from 'react';
-import {
-  array,
-  bool,
-  func,
-  object,
-} from 'prop-types';
-import {
-  Dimensions,
-  View,
-} from 'react-native';
-import styles from './styles';
+import { array, bool, func, object } from 'prop-types';
+import { View } from 'react-native';
 import DashboardInternals from './DashboardInternals';
 import { getElapsedTime } from '../../helpers/timeManager';
 import { distanceBetweenPoints } from '../../helpers/pointsManager';
 import recordingAlert from './RecordingAlert';
 
-const { width } = Dimensions.get('window');
+import styles from './styles';
 
 const Dashboard = ({
   currentPosition,
   currentTrack,
-  onFinishCurrentTrack,
+  onCompleteCurrentTrack,
   isRecording,
+  onResetTrack,
   onToggleRecord,
-}) => {
-  return (
-    <View style={{ ...styles.dashboard, width: width - 240 }}>
-      <DashboardInternals
-        distanceFromStart={distanceBetweenPoints(
-          currentTrack[0],
-          currentTrack[currentTrack.length - 1],
-        )}
-        currentPosition={currentPosition}
-        elapsedTime={getElapsedTime(currentTrack)}
-        isRecording={isRecording}
-        onToggleRecord={() => {
-          onToggleRecord();
-          if (isRecording) recordingAlert({ currentTrack, onFinishCurrentTrack });
-        }}
-      />
-    </View>
-  );
-};
+}) => (
+  <View style={styles.dashboard}>
+    <DashboardInternals
+      distanceFromStart={distanceBetweenPoints(
+        currentTrack[0],
+        currentTrack[currentTrack.length - 1],
+      )}
+      currentPosition={currentPosition}
+      //elapsedTime={getElapsedTime(currentTrack)}
+      onResetTrack={onResetTrack}
+      isRecording={isRecording}
+      onToggleRecord={() => {
+        onToggleRecord();
+        if (isRecording) recordingAlert({ currentTrack, onCompleteCurrentTrack });
+      }}
+    />
+  </View>
+);
 
 Dashboard.propTypes = {
   currentPosition: object,
   currentTrack: array,
   isRecording: bool,
-  onFinishCurrentTrack: func,
+  onCompleteCurrentTrack: func,
   onToggleRecord: func,
 };
 
@@ -55,7 +46,7 @@ Dashboard.defaultProps = {
   currentPosition: {},
   currentTrack: {},
   isRecording: false,
-  onFinishCurrentTrack: () => { },
+  onCompleteCurrentTrack: () => { },
   onToggleRecord: () => { },
 };
 

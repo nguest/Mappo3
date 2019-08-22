@@ -13,7 +13,6 @@ import styles from './styles';
 
 const TrackList = ({ navigation, tracks, removeTrack }) => (
   <View style={styles.list}>
-    { console.log({tracks})}
     <SwipeListView
       data={tracks}
       renderItem={({ item }) => (

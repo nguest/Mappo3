@@ -16,7 +16,7 @@ export default class HomeScreen extends PureComponent {
   }
 
   onChangePosition = (position) => {
-    if (this.state.isRecording) this.saveTrack(position)
+    if (this.state.isRecording) this.saveTrack(position);
 
     this.setState(prevState => {
       const simplifiedPosition = simplifyPosition(position);
@@ -35,7 +35,7 @@ export default class HomeScreen extends PureComponent {
     });
   };
 
-  onFinishCurrentTrack = () => {
+  onCompleteCurrentTrack = () => {
     console.log('finished!');
     const { currentTrack, currentTrackId } = this.state;
     const decoratedTrack = decorateTrack({ track: currentTrack })
@@ -58,9 +58,17 @@ export default class HomeScreen extends PureComponent {
     });
   }
 
+  resetTrack = () => {
+    this.setState({
+      currentTrack: [],
+      currentTrackId: null,
+    })
+  }
+
   saveTrack = (position) => {
-    if (this.state.currentTrack.length % 5 === 0) {
-      updateSavedTrack({ id: currentTrackId, track: { id: currentTrackId, data: [...this.state.currentTrack, position] }})
+    const { currentTrack, currentTrackId } = this.state;
+    if (currentTrack.length % 5 === 0) {
+      updateSavedTrack({ id: currentTrackId, track: { id: currentTrackId, data: [...currentTrack, position] }})
     }
   }
 
@@ -80,8 +88,9 @@ export default class HomeScreen extends PureComponent {
         <Dashboard
           currentPosition={currentPosition}
           currentTrack={currentTrack}
-          onFinishCurrentTrack={this.onFinishCurrentTrack}
+          onCompleteCurrentTrack={this.onCompleteCurrentTrack}
           isRecording={isRecording}
+          onResetTrack={this.resetTrack}
           onToggleRecord={this.onToggleRecord} />
         <PositionManager onChangePosition={this.onChangePosition}/>
       </View>

@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import s from '../../styles';
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   dashboard: {
@@ -9,6 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: s.colors.bg,
     borderWidth: 2,
     borderStyle: 'solid',
+    width: width - 20,
   },
 });
 

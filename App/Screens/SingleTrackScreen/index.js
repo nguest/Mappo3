@@ -13,7 +13,7 @@ const SingleTrackScreen = ({
   const track = navigation.getParam('track', null);
   return (
     <View style={[s.align.vCenter, s.align.hCenter]}>
-      <Text>{ `Date: ${format(track.date, 'ddd DD/MM/YYYY')}` }</Text>
+      <Text>{ `date: ${format(track.date, 'ddd DD/MM/YYYY')}` }</Text>
       <Text>{ `duration: ${track.elapsedTime} s` }</Text>
       <Text>{ `distance: ${track.startEndDistance.toFixed(1)} km` }</Text>
       <Text>{ `start: ${format(track.data[0].ts, 'HH:mm')}` }</Text>
@@ -21,8 +21,8 @@ const SingleTrackScreen = ({
       <MapView
         centerCoordinate={[track.data[0].lon, track.data[0].lat]}
         currentTrack={track.data}
+        dynamic={false}
         isRecording={false}
-        static={true}
         zoomLevel={12}
       />
     </View>

@@ -2,7 +2,7 @@ import {
   Alert,
 } from 'react-native';
 
-const recordingAlert = ({ currentTrack, onFinishCurrentTrack }) => {
+const recordingAlert = ({ currentTrack, onCompleteCurrentTrack }) => {
   const buttonArray = [
     {
       text: 'Cancel',
@@ -17,7 +17,7 @@ const recordingAlert = ({ currentTrack, onFinishCurrentTrack }) => {
       text: 'Finish',
       onPress: () => {
         console.log('Finish');
-        onFinishCurrentTrack(false);
+        onCompleteCurrentTrack(false);
       },
     });
   }

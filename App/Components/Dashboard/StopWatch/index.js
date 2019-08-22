@@ -5,7 +5,7 @@ import { addSeconds, format } from 'date-fns';
 
 import { stdTimezoneOffsetInSecs } from '../../../helpers/timeManager';
 
-const StopWatch = ({ isStarted }) => {
+const StopWatch = ({ doReset, isStarted }) => {
   const [isActive, setIsActive] = useState(false);
   const [ms, setMs] = useState(0);
 
@@ -13,6 +13,12 @@ const StopWatch = ({ isStarted }) => {
     setMs(0);
     setIsActive(false);
   };
+
+  useEffect(() => {
+    if (doReset) {
+      reset();
+    }
+  }, [doReset]);
 
   useEffect(() => {
     setIsActive(isStarted);
@@ -31,23 +37,27 @@ const StopWatch = ({ isStarted }) => {
   return (
     <View>
       <Text>
-        { format(
-          addSeconds(
-            new Date(0),
-            ms * 0.001 + stdTimezoneOffsetInSecs(),
-          ),
-          'HH:mm:ss',
-        )}
+        {
+          format(
+            addSeconds(
+              new Date(0),
+              ms * 0.001 + stdTimezoneOffsetInSecs(),
+            ),
+            'HH:mm:ss',
+          )
+        }
       </Text>
     </View>
   );
 };
 
 StopWatch.propTypes = {
+  doReset: bool,
   isStarted: bool,
 };
 
 StopWatch.defaultProps = {
+  doReset: false,
   isStarted: false,
 };
 
