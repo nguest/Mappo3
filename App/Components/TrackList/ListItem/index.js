@@ -11,14 +11,14 @@ import styles from './styles';
 
 const ListItem = ({ item, onPressItem }) => {
   const {
-    data, id, elapsedTime, startEndDistance,
+    data, id, elapsedTime, startEndDistance, date,
   } = item;
 
   return (
     <TouchableHighlight style={styles.container} onPress={() => onPressItem({ id })}>
       <View style={styles.item}>
         <Text>
-          { format(data[0].ts, 'ddd DD/MM/YYYY HH:mm') }
+          { format(date, 'ddd DD/MM/YYYY HH:mm') }
         </Text>
         <Text>
           { `${elapsedTime} s` }

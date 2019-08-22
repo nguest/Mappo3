@@ -38,8 +38,9 @@ export default class HomeScreen extends PureComponent {
   onFinishCurrentTrack = () => {
     console.log('finished!');
     const { currentTrack, currentTrackId } = this.state;
-    updateSavedTrack({ id: currentTrackId, track: decorateTrack({ track: currentTrack }) })
-    this.props.navigation.navigate('SingleTrack', { id: currentTrackId })
+    const decoratedTrack = decorateTrack({ track: currentTrack })
+    updateSavedTrack({ id: currentTrackId, track: decoratedTrack })
+    this.props.navigation.navigate('SingleTrack', { track: decoratedTrack })
     this.setState({ currentTrack: [], currentTrackId: null })
   }
 
@@ -73,6 +74,7 @@ export default class HomeScreen extends PureComponent {
         <MapView
           centerCoordinate={currentPosition && [currentPosition.coords.longitude, currentPosition.coords.latitude]}
           currentTrack={currentTrack}
+          dynamic={true}
           isRecording={isRecording}
         />
         <Dashboard

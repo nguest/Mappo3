@@ -49,7 +49,7 @@ export default class Map extends Component {
   }
 
   render() {
-    const { centerCoordinate, currentTrack, isRecording, zoomLevel } = this.props;
+    const { centerCoordinate, currentTrack, dynamic, isRecording, zoomLevel } = this.props;
     return (
       <SafeAreaView style={styles.page}>
         <View style={styles.container}>
@@ -66,7 +66,7 @@ export default class Map extends Component {
               followZoomLevel={14}
               followUserLocation={isRecording || !currentTrack}
             />
-            <MapboxGL.UserLocation />
+            { dynamic && <MapboxGL.UserLocation /> }
             { renderTrack(currentTrack) }
             { renderMarkers(currentTrack) }
           </MapboxGL.MapView>
@@ -84,6 +84,7 @@ Map.defaultProps = {
 Map.propTypes = {
   centerCoordinate: array.isRequired,
   currentTrack: array,
+  dynamic: bool.isRequired,
   isRecording: bool.isRequired,
   zoomLevel: number,
 };

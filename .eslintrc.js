@@ -20,5 +20,6 @@ module.exports = {
       "react/require-default": "off",
       "react/forbid-prop-types": "off",
       "object-curly-newline": "off",
+      "react/jsx-boolean-value": "off",
   },
 };

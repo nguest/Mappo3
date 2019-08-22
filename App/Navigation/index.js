@@ -22,7 +22,7 @@ const TracksNavigator = createStackNavigator({
     navigationOptions: ({ navigation }) => {
       const track = navigation.getParam('track', 'Flight');
       return {
-        title: `Flight on ${format(track.data[0].ts, 'DD/MM/YYYY')}`,
+        title: `Flight on ${format(track.date, 'DD/MM/YYYY')}`,
       };
     },
   },
