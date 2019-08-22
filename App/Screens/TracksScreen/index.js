@@ -16,7 +16,10 @@ const TracksScreen = ({ isFocused, navigation }) => {
         .then((items) => {
           Promise.all(items)
             .then((resolvedItems) => {
-              setTracks(resolvedItems.map((item) => JSON.parse(item)));
+              const completedTracks = resolvedItems
+                .map((item) => JSON.parse(item))
+                .filter((item) => item.isComplete);
+              setTracks(completedTracks);
             });
         });
     }

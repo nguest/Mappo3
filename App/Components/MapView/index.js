@@ -50,18 +50,15 @@ export default class Map extends Component {
 
   render() {
     const { centerCoordinate, currentTrack, isRecording, zoomLevel } = this.props;
-    console.log({ centerCoordinate });
-    console.log({ style: MapboxGL.StyleURL })
     return (
       <SafeAreaView style={styles.page}>
         <View style={styles.container}>
           <MapboxGL.MapView
             zoomLevel={8}
             showUserLocation
-            style={MapboxGL.StyleURL.Outdoors}
+            style={[styles.map, MapboxGL.StyleURL.Outdoors] }
             // onUserLocationUpdate={this.onUserLocationUpdate}
             // userTrackingMode={MapboxGL.UserTrackingModes.Follow}
-            style={styles.map}
           >
             <MapboxGL.Camera
               centerCoordinate={centerCoordinate}

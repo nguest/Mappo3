@@ -23,7 +23,7 @@ const TracksNavigator = createStackNavigator({
       const track = navigation.getParam('track', 'Flight');
       return {
         title: `Flight on ${format(track.data[0].ts, 'DD/MM/YYYY')}`,
-      }
+      };
     },
   },
 },
@@ -37,7 +37,7 @@ const TabNavigator = createBottomTabNavigator({
   Tracks: { screen: TracksNavigator },
 },
 {
-  initialRouteName: 'Tracks',
+  initialRouteName: 'Home',
 
   // defaultNavigationOptions: ({ navigation }) => ({
   //   tabBarIcon: ({ focused, horizontal, tintColor }) => {

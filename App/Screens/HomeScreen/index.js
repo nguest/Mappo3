@@ -5,7 +5,7 @@ import Dashboard from '../../components/Dashboard';
 import PositionManager from '../../components/PositionManager';
 
 import s from '../../styles';
-import { clearAsyncStorage, saveNewTrack, getTrack, updateSavedTrack } from '../../helpers/storageManager';
+import { clearAsyncStorage, saveNewTrack, updateSavedTrack } from '../../helpers/storageManager';
 import { decorateTrack, simplifyPosition, filterPoint } from '../../helpers/pointsManager';
 
 export default class HomeScreen extends PureComponent {
@@ -16,7 +16,6 @@ export default class HomeScreen extends PureComponent {
   }
 
   onChangePosition = (position) => {
-    // console.log({ homescreen: position })
     if (this.state.isRecording) this.saveTrack(position)
 
     this.setState(prevState => {

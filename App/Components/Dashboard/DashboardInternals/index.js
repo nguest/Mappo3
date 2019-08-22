@@ -1,13 +1,8 @@
 
 import React from 'react';
-import {
-  any, bool, func, object,
-} from 'prop-types';
-
-import {
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { any, bool, func, object } from 'prop-types';
+import { Text, TouchableOpacity } from 'react-native';
+import StopWatch from '../StopWatch';
 
 import styles from './styles';
 
@@ -22,6 +17,7 @@ const DashboardInternals = ({
       <>
         <Text>{ elapsedTime }</Text>
         <Text>{ currentPosition.coords.longitude }</Text>
+        <StopWatch isStarted={isRecording} />
         <TouchableOpacity onPress={onToggleRecord} style={styles.recordButton}>
           <Text>{ isRecording ? 'Stop' : 'Record' }</Text>
         </TouchableOpacity>

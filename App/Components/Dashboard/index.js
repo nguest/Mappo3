@@ -36,7 +36,7 @@ const Dashboard = ({
         isRecording={isRecording}
         onToggleRecord={() => {
           onToggleRecord();
-          if (isRecording) recordingAlert({ onFinishCurrentTrack });
+          if (isRecording) recordingAlert({ currentTrack, onFinishCurrentTrack });
         }}
       />
     </View>
