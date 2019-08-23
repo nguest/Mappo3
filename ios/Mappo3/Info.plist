@@ -24,6 +24,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>Location </key>
+	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -41,6 +43,8 @@
 	<string>YES</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>YES</string>
+	<key>NSMotionUsageDescription</key>
+	<string>YES</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -57,13 +61,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>Location </key>
-	<string></string>
-	<key>NSMotionUsageDescription</key>
-	<string>YES</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

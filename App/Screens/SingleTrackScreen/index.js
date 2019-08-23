@@ -1,8 +1,7 @@
 import React from 'react';
 import { object } from 'prop-types';
-import { Button, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { format } from 'date-fns';
-import { readFiles } from '../../helpers/fileManager';
 
 import ShareButton from '../../components/ShareButton';
 import MapView from '../../components/MapView';
@@ -13,10 +12,12 @@ const SingleTrackScreen = ({
   navigation,
 }) => {
   const track = navigation.getParam('track', null);
-  const rf = readFiles();
   return (
     <View style={[s.align.vCenter, s.align.hCenter]}>
-      <ShareButton />
+      <ShareButton
+        fileName={`${format(track.date, 'DDMMYYYY-HHmm')}.txt`}
+        itemToShare={JSON.stringify(track)}
+      />
       <Text>{ `date: ${format(track.date, 'ddd DD/MM/YYYY')}` }</Text>
       <Text>{ `duration: ${track.elapsedTime} s` }</Text>
       <Text>{ `distance: ${track.startEndDistance.toFixed(1)} km` }</Text>

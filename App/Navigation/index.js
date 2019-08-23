@@ -37,7 +37,7 @@ const TabNavigator = createBottomTabNavigator({
   Tracks: { screen: TracksNavigator },
 },
 {
-  initialRouteName: 'Home',
+  initialRouteName: 'Tracks',
 
   // defaultNavigationOptions: ({ navigation }) => ({
   //   tabBarIcon: ({ focused, horizontal, tintColor }) => {

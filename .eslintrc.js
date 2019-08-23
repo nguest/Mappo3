@@ -4,6 +4,8 @@ module.exports = {
       "Atomics": "readonly",
       "SharedArrayBuffer": "readonly"
   },
+  "parser": "babel-eslint",
+
   "parserOptions": {
       "ecmaFeatures": {
           "jsx": true
@@ -21,5 +23,7 @@ module.exports = {
       "react/forbid-prop-types": "off",
       "object-curly-newline": "off",
       "react/jsx-boolean-value": "off",
+      "react/state-in-constructor": "off",
+      "react/destructuring-assignment": "off"
   },
 };
