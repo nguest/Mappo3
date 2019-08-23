@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 import MapView from '../../components/MapView';
 import Dashboard from '../../components/Dashboard';
-import PositionManager from '../../components/PositionManager';
+import PositionManagerBG from '../../components/PositionManagerBG';
 
 import s from '../../styles';
 import { clearAsyncStorage, saveNewTrack, updateSavedTrack } from '../../helpers/storageManager';
@@ -92,7 +92,7 @@ export default class HomeScreen extends PureComponent {
           isRecording={isRecording}
           onResetTrack={this.resetTrack}
           onToggleRecord={this.onToggleRecord} />
-        <PositionManager onChangePosition={this.onChangePosition}/>
+        <PositionManagerBG onChangePosition={this.onChangePosition} />
       </View>
     );
   }

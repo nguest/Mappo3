@@ -28,6 +28,7 @@ target 'Mappo3' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
 
   target 'Mappo3Tests' do
     inherit! :search_paths
