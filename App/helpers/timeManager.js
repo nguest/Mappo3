@@ -1,4 +1,4 @@
-import { differenceInSeconds } from 'date-fns';
+import { differenceInSeconds, format, addSeconds } from 'date-fns';
 
 export const getElapsedTime = (currentTrack) => {
   if (!currentTrack || !currentTrack.length) return 0;
@@ -10,4 +10,9 @@ export const stdTimezoneOffsetInSecs = () => {
   const january = new Date(year, 0, 1);
   const july = new Date(year, 6, 1);
   return Math.max(january.getTimezoneOffset(), july.getTimezoneOffset()) * 60;
+};
+
+export const secondsToHHMMSS = (seconds) => {
+  const adustedSeconds = addSeconds(new Date(0), seconds + stdTimezoneOffsetInSecs());
+  return format(adustedSeconds, 'HH:mm:ss');
 };

@@ -1,14 +1,14 @@
-import { createBottomTabNavigator, createDrawerNavigator, createStackNavigator } from 'react-navigation';
+
+import React from 'react';
+import { createBottomTabNavigator, BottomTabBar, createStackNavigator } from 'react-navigation';
 import { format } from 'date-fns';
 
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TracksScreen from '../screens/TracksScreen';
-
-
-import s from '../styles';
 import SingleTrackScreen from '../screens/SingleTrackScreen';
 
+import s from '../styles';
 
 const TracksNavigator = createStackNavigator({
   Tracks: {
@@ -31,13 +31,22 @@ const TracksNavigator = createStackNavigator({
   initialRouteName: 'Tracks',
 });
 
+const TabBarComponent = (props) => (<BottomTabBar {...props} />);
+
 const TabNavigator = createBottomTabNavigator({
   Home: HomeScreen,
   Settings: SettingsScreen,
-  Tracks: { screen: TracksNavigator },
+  Tracks: TracksNavigator,
 },
 {
-  initialRouteName: 'Tracks',
+  initialRouteName: 'Home',
+  tabBarComponent: (props) => (
+    <TabBarComponent
+      {...props}
+      style={{ borderTopColor: '#FF0000', height: 20 }}
+    />
+  ),
+
 
   // defaultNavigationOptions: ({ navigation }) => ({
   //   tabBarIcon: ({ focused, horizontal, tintColor }) => {
@@ -60,6 +69,7 @@ const TabNavigator = createBottomTabNavigator({
   tabBarOptions: {
     activeTintColor: s.colors.fg,
     inactiveTintColor: 'gray',
+    activeBackgroundColor: 'rgba(255,255,255,0.1)',
   },
 });
 

@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#468889',
   },
 
+  resetButton: {
+    padding: 10,
+    backgroundColor: '#dddddd',
+  },
+
   container: {
     ...s.align.vCenter,
     ...s.align.hCenter,

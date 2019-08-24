@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import ShareButton from '../../components/ShareButton';
 import MapView from '../../components/MapView';
 import { convertTrackToGPX } from '../../helpers/fileManager';
+import { secondsToHHMMSS } from '../../helpers/timeManager';
 
 
 import s from '../../styles';
@@ -21,10 +22,11 @@ const SingleTrackScreen = ({
         itemToShare={convertTrackToGPX({ track })}
       />
       <Text>{ `date: ${format(track.date, 'ddd DD/MM/YYYY')}` }</Text>
-      <Text>{ `duration: ${track.elapsedTime} s` }</Text>
+      <Text>{ `duration: ${secondsToHHMMSS(track.elapsedTime)}` }</Text>
       <Text>{ `distance: ${track.startEndDistance.toFixed(1)} km` }</Text>
       <Text>{ `start: ${format(track.data[0].ts, 'HH:mm')}` }</Text>
       <Text>{ `end: ${format(track.data[track.data.length - 1].ts, 'HH:mm')}` }</Text>
+      <Text>{ `pointscount: ${track.data.length}` }</Text>
       <MapView
         centerCoordinate={[track.data[0].lon, track.data[0].lat]}
         currentTrack={track.data}

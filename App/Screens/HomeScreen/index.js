@@ -84,9 +84,10 @@ class HomeScreen extends PureComponent {
   }
 
   render() {
+
     //clearAsyncStorage()
     const { currentPosition, currentTrack, isRecording } = this.state;
-    //console.log({ currentTrack: this.state.currentTrack });
+    console.log({ ct: this.state.currentTrack });
 
     return (
       <View style={[s.align.vCenter, s.align.hCenter]}>

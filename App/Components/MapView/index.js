@@ -55,7 +55,9 @@ export default class Map extends Component {
         <View style={styles.container}>
           <MapboxGL.MapView
             zoomLevel={8}
-            showUserLocation
+            attributionEnabled={false}
+            logoEnabled={false}
+           // showUserLocation
             style={[styles.map, MapboxGL.StyleURL.Outdoors]}
             // onUserLocationUpdate={this.onUserLocationUpdate}
             // userTrackingMode={MapboxGL.UserTrackingModes.Follow}

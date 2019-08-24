@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 
   map: {
     flex: 1,
-    height: 500,
+    height: Dimensions.get('window').height,
     width: Dimensions.get('window').width,
   },
 });

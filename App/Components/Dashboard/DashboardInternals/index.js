@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { bool, func, object } from 'prop-types';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import StopWatch from '../StopWatch';
 
 import styles from './styles';
@@ -26,16 +26,22 @@ const DashboardInternals = ({
   if (currentPosition) {
     return (
       <>
-        <StopWatch isStarted={isRecording} doReset={doReset} />
-        <Text>{`Alt: ${currentPosition.coords.altitude}`}</Text>
-        { !isRecording && (
-          <TouchableOpacity onPress={() => setDoReset(true)} style={styles.resetButton}>
-            <Text>Reset Track</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+          <StopWatch isStarted={isRecording} doReset={doReset} />
+          <Text>{`Alt: ${currentPosition.coords.altitude.toFixed(0)}`}</Text>
+          <Text>{`Spd: ${Math.max(0, currentPosition.coords.speed * 3.6).toFixed(1)}`}</Text>
+        </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+          { !isRecording && (
+            <TouchableOpacity onPress={() => setDoReset(true)} style={styles.resetButton}>
+              <Text>Reset Track</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity onPress={onToggleRecord} style={styles.recordButton}>
+            <Text>{ isRecording ? 'Stop' : 'Record' }</Text>
           </TouchableOpacity>
-        )}
-        <TouchableOpacity onPress={onToggleRecord} style={styles.recordButton}>
-          <Text>{ isRecording ? 'Stop' : 'Record' }</Text>
-        </TouchableOpacity>
+        </View>
       </>
     );
   }

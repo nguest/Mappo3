@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import { secondsToHHMMSS } from '../../../helpers/timeManager';
 
 import styles from './styles';
 
@@ -21,7 +22,7 @@ const ListItem = ({ item, onPressItem }) => {
           { format(date, 'ddd DD/MM/YYYY HH:mm') }
         </Text>
         <Text>
-          { `${elapsedTime} s` }
+          { `${secondsToHHMMSS(elapsedTime)}` }
         </Text>
         <Text>
           { `${startEndDistance && startEndDistance.toFixed(1)} km` }
