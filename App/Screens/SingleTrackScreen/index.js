@@ -5,6 +5,8 @@ import { format } from 'date-fns';
 
 import ShareButton from '../../components/ShareButton';
 import MapView from '../../components/MapView';
+import { convertTrackToGPX } from '../../helpers/fileManager';
+
 
 import s from '../../styles';
 
@@ -15,8 +17,8 @@ const SingleTrackScreen = ({
   return (
     <View style={[s.align.vCenter, s.align.hCenter]}>
       <ShareButton
-        fileName={`${format(track.date, 'DDMMYYYY-HHmm')}.txt`}
-        itemToShare={JSON.stringify(track)}
+        fileName={`${format(track.date, 'DDMMYYYY-HHmm')}.gpx`}
+        itemToShare={convertTrackToGPX({ track })}
       />
       <Text>{ `date: ${format(track.date, 'ddd DD/MM/YYYY')}` }</Text>
       <Text>{ `duration: ${track.elapsedTime} s` }</Text>

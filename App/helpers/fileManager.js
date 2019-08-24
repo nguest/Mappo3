@@ -59,31 +59,30 @@ export const convertTrackToGPX = ({ track }) => {
   <gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" creator="Oregon 400t" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd">`;
 
   const metadata = `
-  <metadata>
-    <link href="http://www.garmin.com">
-      <text>Garmin International</text>
-    </link>
-    <time>2009-10-17T22:58:43Z</time>
-  </metadata>`;
+    <metadata>
+      <link href="http://www.garmin.com">
+        <text>Garmin International</text>
+      </link>
+      <time>${track.data[0].ts}</time>
+    </metadata>`;
 
-  const points = track.data.reduce((p, str) => {
+  const points = track.data.reduce((str, p) => {
     const x = `
-    <trkpt lat="${p.lat}" lon="${p.lon}">
-      <ele>${p.alt}</ele>
-      <time>${p.ts}</time>
-    </trkpt>`;
-    return str.concat(x);
+      <trkpt lat="${p.lat}" lon="${p.lon}">
+        <ele>${p.alt}</ele>
+        <time>${format(p.ts, 'YYYY-MM-DDTHH:MM:SSZ')}</time>
+      </trkpt>`;
+    return str.concat('', x);
   }, '');
 
   const trackGPX = `
-  <gpx>
     ${headers}
     ${metadata}
     <trk>
       <name>Track on ${format(track.date, 'DD/MM/YYYY')}</name>
-      <trkseq>
+      <trkseg>
         ${points}]
-      </trkseq>
+      </trkseg>
     </trk>
   </gpx>`;
 

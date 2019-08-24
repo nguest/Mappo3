@@ -33,7 +33,7 @@ const ShareButton = ({ fileName, itemToShare }) => {
       .then((filePath) => onShare({ filePath }));
   };
 
-  return <Button onPress={createNewFile} title="Share" />;
+  return <Button onPress={createNewFile} title="Share GPX" />;
 };
 
 ShareButton.propTypes = {
