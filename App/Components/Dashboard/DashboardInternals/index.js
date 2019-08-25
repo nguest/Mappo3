@@ -2,9 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { bool, func, object } from 'prop-types';
 import { Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import StopWatch from '../StopWatch';
 
+import s from '../../../styles';
+
 import styles from './styles';
+
 
 const DashboardInternals = ({
   currentPosition,
@@ -25,13 +29,20 @@ const DashboardInternals = ({
   if (currentPosition) {
     return (
       <>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-          <StopWatch isStarted={isRecording} doReset={doReset} />
-          <Text>{`Alt: ${currentPosition.coords.altitude.toFixed(0)}`}</Text>
-          <Text>{`Spd: ${Math.max(0, currentPosition.coords.speed * 3.6).toFixed(1)}`}</Text>
+        <View style={styles.topContainer}>
+          <View style={styles.dataBox}>
+            <Text style={s.typography.textL}>{`${currentPosition.coords.altitude.toFixed(0)}`}</Text>
+            <Text style={s.typography.textXS}>m</Text>
+          </View>
+          <View style={styles.dataBox}>
+            <Icon name="ios-speedometer" size={20} />
+            <Text style={s.typography.textM}>{`${Math.max(0, currentPosition.coords.speed * 3.6).toFixed(1)}`}</Text>
+          </View>
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+        <View style={styles.bottomContainer}>
+          <StopWatch isStarted={isRecording} doReset={doReset} />
+
           { !isRecording && (
             <TouchableOpacity onPress={() => setDoReset(true)} style={styles.resetButton}>
               <Text>Reset Track</Text>

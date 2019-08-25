@@ -16,7 +16,7 @@ const Dashboard = ({
   onResetTrack,
   onToggleRecord,
 }) => (
-  <View style={styles.dashboard}>
+  <>
     <DashboardInternals
       distanceFromStart={distanceBetweenPoints(
         currentTrack[0],
@@ -31,7 +31,7 @@ const Dashboard = ({
         if (isRecording) recordingAlert({ currentTrack, onCompleteCurrentTrack });
       }}
     />
-  </View>
+  </>
 );
 
 Dashboard.propTypes = {

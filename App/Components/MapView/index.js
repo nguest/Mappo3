@@ -63,7 +63,7 @@ const Map = ({
   }, []);
 
   return (
-    <SafeAreaView style={styles.page}>
+    <View style={styles.page}>
       <View style={styles.container}>
         <MapboxGL.MapView
           zoomLevel={8}
@@ -85,7 +85,7 @@ const Map = ({
           { renderMarkers(currentTrack) }
         </MapboxGL.MapView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

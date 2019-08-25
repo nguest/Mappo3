@@ -6,9 +6,11 @@ import {
   View,
 } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import ListItem from './ListItem';
 
+import s from '../../styles';
 import styles from './styles';
 
 const TrackList = ({ navigation, tracks, removeTrack }) => (
@@ -35,7 +37,7 @@ const TrackList = ({ navigation, tracks, removeTrack }) => (
               onPress={() => removeTrack({ id })}
               style={styles.button}
             >
-              <Text>DEL</Text>
+              <Icon name="ios-trash" size={24} color={s.colors.bg} />
             </TouchableOpacity>
           </View>
         );

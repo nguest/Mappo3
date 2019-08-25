@@ -1,23 +1,21 @@
 import React from 'react';
 import { func, object } from 'prop-types';
 import { format } from 'date-fns';
-import {
-  Text,
-  TouchableHighlight,
-  View,
-} from 'react-native';
+import { Text, TouchableHighlight, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { secondsToHHMMSS } from '../../../helpers/timeManager';
 
 import styles from './styles';
 
 const ListItem = ({ item, onPressItem }) => {
   const {
-    data, id, elapsedTime, startEndDistance, date,
+    id, elapsedTime, startEndDistance, date,
   } = item;
 
   return (
     <TouchableHighlight style={styles.container} onPress={() => onPressItem({ id })}>
       <View style={styles.item}>
+        <Icon name="ios-map" size={20} />
         <Text>
           { format(date, 'ddd DD/MM/YYYY HH:mm') }
         </Text>

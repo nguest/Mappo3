@@ -5,6 +5,8 @@ import { addSeconds, format } from 'date-fns';
 
 import { stdTimezoneOffsetInSecs } from '../../../helpers/timeManager';
 
+import s from '../../../styles';
+
 const StopWatch = ({ doReset, isStarted }) => {
   const [isActive, setIsActive] = useState(false);
   const [ms, setMs] = useState(0);
@@ -36,7 +38,7 @@ const StopWatch = ({ doReset, isStarted }) => {
 
   return (
     <View>
-      <Text>
+      <Text style={s.typography.textM}>
         {
           format(
             addSeconds(

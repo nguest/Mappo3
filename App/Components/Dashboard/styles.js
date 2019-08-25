@@ -1,17 +1,20 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import s from '../../styles';
 
-const { width } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
+
+const dashboardMargin = 6;
 
 const styles = StyleSheet.create({
   dashboard: {
     position: 'absolute',
-    top: 30,
-    left: 10,
-    backgroundColor: s.colors.bg,
+    top: 26,
+    left: dashboardMargin,
     borderWidth: 2,
     borderStyle: 'solid',
-    width: width - 20,
+    width: width - dashboardMargin * 2,
+    height: height - 52,
+    justifyContent: 'space-between',
   },
 });
 

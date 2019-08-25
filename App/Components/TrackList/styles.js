@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   rowUnderlay: {
-    backgroundColor: '#ff44ff',
+    backgroundColor: s.colors.danger,
+    padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
