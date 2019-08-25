@@ -7,7 +7,10 @@ import { getAllTracks, removeTrack as removeStoredTrack } from '../../helpers/st
 
 import s from '../../styles';
 
-const TracksScreen = ({ isFocused, navigation }) => {
+const TracksScreen = ({
+  isFocused,
+  navigation,
+}) => {
   const [tracks, setTracks] = useState(null);
 
   useEffect(() => {
@@ -20,7 +23,7 @@ const TracksScreen = ({ isFocused, navigation }) => {
                 .map((item) => JSON.parse(item))
                 .filter((item) => item.isComplete)
                 .sort((a, b) => new Date(b.date) - new Date(a.date));
-              setTracks(completedTracks);
+              setTracks(completedTracks || []);
             });
         });
     }

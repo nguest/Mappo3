@@ -22,7 +22,6 @@ const DashboardInternals = ({
     }
   }, [doReset]);
 
-
   if (currentPosition) {
     return (
       <>
