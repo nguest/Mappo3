@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { bool, object } from 'prop-types';
 import { SafeAreaView, Text } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
-
 import TrackList from '../../components/TrackList';
 import { getAllTracks, removeTrack as removeStoredTrack } from '../../helpers/storageManager';
+
 import s from '../../styles';
 
 const TracksScreen = ({ isFocused, navigation }) => {
@@ -18,7 +18,8 @@ const TracksScreen = ({ isFocused, navigation }) => {
             .then((resolvedItems) => {
               const completedTracks = resolvedItems
                 .map((item) => JSON.parse(item))
-                .filter((item) => item.isComplete);
+                .filter((item) => item.isComplete)
+                .sort((a, b) => new Date(b.date) - new Date(a.date));
               setTracks(completedTracks);
             });
         });
