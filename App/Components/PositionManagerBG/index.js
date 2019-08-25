@@ -51,7 +51,7 @@ export default class PositionManagerBG extends Component {
   }
 
   onLocation = (location) => {
-    //console.log('[location] -', location);
+    console.log('[location] -', location);
     this.props.onChangePosition(location);
   }
 

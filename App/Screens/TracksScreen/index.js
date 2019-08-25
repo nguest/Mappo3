@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { bool, object } from 'prop-types';
-import { SafeAreaView, Text } from 'react-native';
+import { ActivityIndicator, SafeAreaView, Text } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import TrackList from '../../components/TrackList';
 import { getAllTracks, removeTrack as removeStoredTrack } from '../../helpers/storageManager';
@@ -8,7 +8,7 @@ import { getAllTracks, removeTrack as removeStoredTrack } from '../../helpers/st
 import s from '../../styles';
 
 const TracksScreen = ({ isFocused, navigation }) => {
-  const [tracks, setTracks] = useState([]);
+  const [tracks, setTracks] = useState(null);
 
   useEffect(() => {
     if (isFocused) {
@@ -33,6 +33,9 @@ const TracksScreen = ({ isFocused, navigation }) => {
   };
 
   const renderTrackList = () => {
+    if (!tracks) {
+      return <ActivityIndicator size="large" color="#0000ff" />;
+    }
     if (tracks.length) {
       return <TrackList navigation={navigation} tracks={tracks} removeTrack={removeTrack} />;
     }

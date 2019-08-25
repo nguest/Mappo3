@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { array, bool, number } from 'prop-types';
 import { SafeAreaView, View } from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
@@ -41,42 +41,53 @@ const renderMarkers = (currentTrack) => {
   );
 };
 
-export default class Map extends Component {
-  componentDidMount() {
-    MapboxGL.setAccessToken(mapboxApiKey);
-    MapboxGL.setTelemetryEnabled(false);
-    MapboxGL.locationManager.start();
-  }
+const Map = ({
+  centerCoordinate,
+  currentTrack,
+  dynamic,
+  isRecording,
+  zoomLevel,
+}) => {
+  const didMountRef = useRef(false);
 
-  render() {
-    const { centerCoordinate, currentTrack, dynamic, isRecording, zoomLevel } = this.props;
-    return (
-      <SafeAreaView style={styles.page}>
-        <View style={styles.container}>
-          <MapboxGL.MapView
-            zoomLevel={8}
-            attributionEnabled={false}
-            logoEnabled={false}
-           // showUserLocation
-            style={[styles.map, MapboxGL.StyleURL.Outdoors]}
-            // onUserLocationUpdate={this.onUserLocationUpdate}
-            // userTrackingMode={MapboxGL.UserTrackingModes.Follow}
-          >
-            <MapboxGL.Camera
-              centerCoordinate={centerCoordinate}
-              zoomLevel={zoomLevel}
-              followZoomLevel={14}
-              followUserLocation={isRecording || !currentTrack}
-            />
-            { dynamic && <MapboxGL.UserLocation /> }
-            { renderTrack(currentTrack) }
-            { renderMarkers(currentTrack) }
-          </MapboxGL.MapView>
-        </View>
-      </SafeAreaView>
-    );
-  }
-}
+  useEffect(() => {
+    if (!didMountRef.current) {
+      MapboxGL.setAccessToken(mapboxApiKey);
+      MapboxGL.setTelemetryEnabled(false);
+      MapboxGL.locationManager.start();
+      didMountRef.current = true;
+    }
+    return () => {
+      MapboxGL.locationManager.dispose();
+    };
+  }, []);
+
+  return (
+    <SafeAreaView style={styles.page}>
+      <View style={styles.container}>
+        <MapboxGL.MapView
+          zoomLevel={8}
+          attributionEnabled={false}
+          logoEnabled={false}
+          // showUserLocation
+          style={[styles.map, MapboxGL.StyleURL.Outdoors]}
+          // onUserLocationUpdate={this.onUserLocationUpdate}
+          // userTrackingMode={MapboxGL.UserTrackingModes.Follow}
+        >
+          <MapboxGL.Camera
+            centerCoordinate={centerCoordinate}
+            zoomLevel={zoomLevel}
+            followZoomLevel={14}
+            followUserLocation={isRecording || !currentTrack}
+          />
+          { dynamic && <MapboxGL.UserLocation /> }
+          { renderTrack(currentTrack) }
+          { renderMarkers(currentTrack) }
+        </MapboxGL.MapView>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 Map.defaultProps = {
   currentTrack: [],
@@ -90,3 +101,5 @@ Map.propTypes = {
   isRecording: bool.isRequired,
   zoomLevel: number,
 };
+
+export default Map;
