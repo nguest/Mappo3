@@ -34,4 +34,3 @@ export default class PositionManager extends Component {
 PositionManager.propTypes = {
   onChangePosition: func,
 }
-

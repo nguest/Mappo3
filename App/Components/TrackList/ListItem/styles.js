@@ -3,9 +3,9 @@ import s from '../../../styles';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#46fd89',
-    borderWidth: 1,
-    borderColor: '#dddddd',
+    backgroundColor: '#f0f0f0',
+    borderBottomWidth: 1,
+    borderBottomColor: '#dddddd',
     padding: 10,
     height: 40,
     width: '100%',

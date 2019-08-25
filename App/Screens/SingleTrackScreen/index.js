@@ -15,6 +15,7 @@ const SingleTrackScreen = ({
   navigation,
 }) => {
   const track = navigation.getParam('track', null);
+  console.log({ track })
   return (
     <View style={[s.align.vCenter, s.align.hCenter]}>
       <ShareButton
@@ -23,14 +24,15 @@ const SingleTrackScreen = ({
       />
       <Text>{ `date: ${format(track.date, 'ddd DD/MM/YYYY')}` }</Text>
       <Text>{ `duration: ${secondsToHHMMSS(track.elapsedTime)}` }</Text>
-      <Text>{ `distance: ${track.startEndDistance.toFixed(1)} km` }</Text>
+      <Text>{ `startEndDistance: ${track.startEndDistance.toFixed(1)} km` }</Text>
+      <Text>{ `totalDistance: ${track.totalDistance && track.totalDistance.toFixed(1)} km` }</Text>
       <Text>{ `start: ${format(track.data[0].ts, 'HH:mm')}` }</Text>
       <Text>{ `end: ${format(track.data[track.data.length - 1].ts, 'HH:mm')}` }</Text>
       <Text>{ `pointscount: ${track.data.length}` }</Text>
       <MapView
         centerCoordinate={[track.data[0].lon, track.data[0].lat]}
         currentTrack={track.data}
-        dynamic={false}
+        isDynamic={false}
         isRecording={false}
         zoomLevel={12}
       />

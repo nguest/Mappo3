@@ -44,7 +44,7 @@ const renderMarkers = (currentTrack) => {
 const Map = ({
   centerCoordinate,
   currentTrack,
-  dynamic,
+  isDynamic,
   isRecording,
   zoomLevel,
 }) => {
@@ -80,7 +80,7 @@ const Map = ({
             followZoomLevel={14}
             followUserLocation={isRecording || !currentTrack}
           />
-          { dynamic && <MapboxGL.UserLocation /> }
+          { isDynamic && <MapboxGL.UserLocation /> }
           { renderTrack(currentTrack) }
           { renderMarkers(currentTrack) }
         </MapboxGL.MapView>
@@ -97,7 +97,7 @@ Map.defaultProps = {
 Map.propTypes = {
   centerCoordinate: array.isRequired,
   currentTrack: array,
-  dynamic: bool.isRequired,
+  isDynamic: bool.isRequired,
   isRecording: bool.isRequired,
   zoomLevel: number,
 };

@@ -25,6 +25,14 @@ export const distanceBetweenPoints = (point1, point2) => {
   return distance(from, to, options);
 };
 
+export const totalDistance = (track) => (
+  track.reduce((total, p, idx, src) => {
+    if (src[idx + 1]) {
+      return total + distanceBetweenPoints(p, src[idx + 1]);
+    }
+    return total;
+  }, 0)
+);
 
 export const filterPoint = (currPoint, prevPoint) => {
   if (!prevPoint || currPoint.alt > limits.MAX_ALTITUDE) return null;
@@ -42,6 +50,7 @@ export const decorateTrack = ({ track }) => {
   const startEndDistance = distanceBetweenPoints(track[0], track[totalPoints - 1]);
   decoratedTrack.elapsedTime = elapsedTime;
   decoratedTrack.startEndDistance = startEndDistance;
+  decoratedTrack.totalDistance = totalDistance(track);
   decoratedTrack.date = track[0].ts;
   decoratedTrack.isComplete = true;
   return decoratedTrack;

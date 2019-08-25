@@ -84,7 +84,7 @@ const HomeScreen = ({
         centerCoordinate={currentPosition
           && [currentPosition.coords.longitude, currentPosition.coords.latitude]}
         currentTrack={currentTrack}
-        dynamic={true}
+        isDynamic={true}
         isRecording={isRecording}
       />
       <Dashboard
