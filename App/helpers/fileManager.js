@@ -86,3 +86,33 @@ export const convertTrackToGPX = ({ track }) => {
 
   return trackGPX;
 };
+
+export const DDtoDDSStr = (DD, bytes) => {
+  const afterPoint = (DD - Math.floor(DD)) * 60;
+  const strAfterPoint = `${afterPoint.toFixed(5)}`.replace('.', '');
+  return `${Math.floor(DD)}${strAfterPoint}`.padStart(bytes, '0');
+};
+
+export const convertTrackToIGC = ({ track }) => {
+  const headers = `AXGD Garmin USB: eTrex Vista HCx Software Version 3.30
+  HFDTE010813
+  HOPLTPILOT: Nicholas Guest
+  HOGTYGLIDERTYPE: Ozone Rush 3 
+  HOGIDGLIDERID: 
+  HODTM100GPSDATUM: WGS-84
+  HOCIDCOMPETITIONID: 
+  HOCCLCOMPETITION CLASS: 
+  HOSITSite:`;
+
+  const fixes = track.data.reduce((str, p) => {
+    const time = `${format(p.ts, 'HHMMSS')}`;
+    const lat = `${DDtoDDSStr(p.lat, 7)}`; // correct?
+    const lon = `${DDtoDDSStr(p.lon, 8)}`;
+    const gpsAlt = `${p.alt.toFixed(0).padStart(5, '0')}`;
+    const bRecord = `B${time}${lat}N${lon}EA00000${gpsAlt}`;
+    return str.concat('', bRecord);
+  }, '');
+
+  // B091938.4624909N.00806690E.A0000002143
+  return `${headers}${fixes}`;
+};

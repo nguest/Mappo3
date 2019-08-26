@@ -1,14 +1,38 @@
 
 import React from 'react';
-import { createBottomTabNavigator, BottomTabBar, createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, BottomTabBar, createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 import { format } from 'date-fns';
 
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TracksScreen from '../screens/TracksScreen';
 import SingleTrackScreen from '../screens/SingleTrackScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 import s from '../styles';
+
+const SettingsNavigator = createMaterialTopTabNavigator({
+  Settings: SettingsScreen,
+  Profile: ProfileScreen,
+},
+{
+  tabBarOptions: {
+    upperCaseLabel: false,
+    labelStyle: {
+      paddingTop: 16,
+      //fontSize: 20,
+      textTransform: 'none',
+      color: '#000000',
+    },
+    // tabStyle: {
+    //   width: 100,
+    // },
+    style: {
+      backgroundColor: '#eeeeee',
+    },
+  },
+});
+
 
 const TracksNavigator = createStackNavigator({
   Tracks: {
@@ -35,11 +59,11 @@ const TabBarComponent = (props) => (<BottomTabBar {...props} />);
 
 const TabNavigator = createBottomTabNavigator({
   Home: HomeScreen,
-  Settings: SettingsScreen,
+  Settings: SettingsNavigator,
   Tracks: TracksNavigator,
 },
 {
-  initialRouteName: 'Home',
+  initialRouteName: 'Settings',
   tabBarComponent: (props) => (
     <TabBarComponent
       {...props}
