@@ -88,31 +88,42 @@ export const convertTrackToGPX = ({ track }) => {
 };
 
 export const DDtoDDSStr = (DD, bytes) => {
-  const afterPoint = (DD - Math.floor(DD)) * 60;
-  const strAfterPoint = `${afterPoint.toFixed(5)}`.replace('.', '');
-  return `${Math.floor(DD)}${strAfterPoint}`.padStart(bytes, '0');
+  const DDn = DD < 0 ? 360 + DD : DD;
+  const afterPoint = (DDn - Math.floor(DDn)) * 60;
+ // console.log({afterPoint})
+  const strAfterPoint = `${afterPoint.toFixed(3)}`.replace('.', '');
+ // console.log({strAfterPoint})
+  return `${Math.floor(DDn)}${strAfterPoint}`.padStart(bytes, '0');
 };
 
 export const convertTrackToIGC = ({ track }) => {
   const headers = `AXGD Garmin USB: eTrex Vista HCx Software Version 3.30
-  HFDTE010813
-  HOPLTPILOT: Nicholas Guest
-  HOGTYGLIDERTYPE: Ozone Rush 3 
-  HOGIDGLIDERID: 
-  HODTM100GPSDATUM: WGS-84
-  HOCIDCOMPETITIONID: 
-  HOCCLCOMPETITION CLASS: 
-  HOSITSite:`;
+HFDTE010813
+HOPLTPILOT: Nicholas Guest
+HOGTYGLIDERTYPE: Ozone Rush 3 
+HOGIDGLIDERID: 
+HODTM100GPSDATUM: WGS-84
+HOCIDCOMPETITIONID: 
+HOCCLCOMPETITION CLASS: 
+HOSITSite:\n`;
+  const footers = `LXGD GpsDumpMac version 0.28
+LXGD Downloaded 2019-08-27  20:21:50
+G9E9EDF195217B7DE
+`;
 
   const fixes = track.data.reduce((str, p) => {
     const time = `${format(p.ts, 'HHMMSS')}`;
     const lat = `${DDtoDDSStr(p.lat, 7)}`; // correct?
     const lon = `${DDtoDDSStr(p.lon, 8)}`;
     const gpsAlt = `${p.alt.toFixed(0).padStart(5, '0')}`;
-    const bRecord = `B${time}${lat}N${lon}EA00000${gpsAlt}`;
+    const bRecord = `B${time}${lat}N${lon}EA00000${gpsAlt}\n`;
+    console.log({ time, lat, lon, gpsAlt, bRecord })
     return str.concat('', bRecord);
   }, '');
 
   // B091938.4624909N.00806690E.A0000002143
-  return `${headers}${fixes}`;
+  // B220822.3732675N.23737850E.A0000000000
+  return `${headers}${fixes}${footers}`;
 };
+
+// http://vali.fai-civl.org/documents/IGC-Spec_v1.00.pdf

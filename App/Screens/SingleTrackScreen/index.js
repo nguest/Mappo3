@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 
 import ShareButton from '../../components/ShareButton';
 import MapView from '../../components/MapView';
-import { convertTrackToGPX } from '../../helpers/fileManager';
+import { convertTrackToGPX, convertTrackToIGC } from '../../helpers/fileManager';
 import { secondsToHHMMSS } from '../../helpers/timeManager';
 
 
@@ -15,7 +15,10 @@ const SingleTrackScreen = ({
   navigation,
 }) => {
   const track = navigation.getParam('track', null);
-  console.log({ track })
+  //console.log({ track })
+  
+  console.log(convertTrackToIGC({track}))
+
   return (
     <View style={[s.align.vCenter, s.align.hCenter]}>
       <ShareButton

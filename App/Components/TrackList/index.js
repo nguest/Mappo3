@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import ListItem from './ListItem';
 
 import s from '../../styles';
