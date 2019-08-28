@@ -4,6 +4,13 @@ module.exports = {
       "Atomics": "readonly",
       "SharedArrayBuffer": "readonly"
   },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "jest": true,
+    "es6": true
+  },
   "parser": "babel-eslint",
 
   "parserOptions": {
@@ -27,3 +34,4 @@ module.exports = {
       "react/destructuring-assignment": "off"
   },
 };
+x

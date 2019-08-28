@@ -1,7 +1,7 @@
-const diff = (v1, v2) => ({ x: v1.x - v2.x, y: v1.y - v2.y });
-const length = (v1, v2) => (diff(v1, v2).x ** 2 + diff(v1, v2).y ** 2) ** 0.5;
+export const diff = (v1, v2) => ({ x: v1.x - v2.x, y: v1.y - v2.y });
+export const vLength = (v1, v2) => (diff(v1, v2).x ** 2 + diff(v1, v2).y ** 2) ** 0.5;
 
-const perpendicularDistance = (pi, [p1, pEnd]) => {
+export const perpendicularDistance = (pi, [p1, pEnd]) => {
   const alpha = Math.atan((diff(pEnd, p1).y / (diff(pEnd, p1).x)));
   const lambda = Math.atan((diff(pi, p1).y / (diff(pi, p1).x)));
   const theta = alpha - lambda;
@@ -14,7 +14,7 @@ const DouglasPeucker = (PointList, epsilon) => {
   let index = 0;
   const end = PointList.length;
 
-  for (let i = 2; end - 1; i++) {
+  for (let i = 2; end - 1; i += 1) {
     const d = perpendicularDistance(PointList[i], [PointList[1], PointList[end]]);
     if (d > dmax) {
       index = i;
