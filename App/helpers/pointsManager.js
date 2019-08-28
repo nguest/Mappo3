@@ -1,5 +1,5 @@
 import { distance, point } from '@turf/turf';
-import { differenceInSeconds } from 'date-fns';
+import { differenceInSeconds, addMonths } from 'date-fns';
 
 export const limits = {
   MAX_SPEED: 200,
@@ -39,7 +39,8 @@ export const filterPoint = (currPoint, prevPoint) => {
   const elapsedTime = differenceInSeconds(currPoint.ts, prevPoint.ts);
   const elapsedDistance = distanceBetweenPoints(currPoint, prevPoint);
   const velocity = elapsedDistance / (elapsedTime / 3600);
-  if (velocity > limits.MAX_SPEED) return null;
+  console.log({elapsedTime, elapsedDistance, velocity})
+  if (Math.abs(velocity) > limits.MAX_SPEED) return null;
   return currPoint;
 };
 

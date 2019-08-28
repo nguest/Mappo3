@@ -1,4 +1,4 @@
-import { diff, vLength, perpendicularDistance } from './douglasPeucker';
+import { diff, length, perpendicularDistance } from './douglasPeucker';
 
 describe('diff', () => {
   it('handles positive vectors', () => {
@@ -10,8 +10,9 @@ describe('diff', () => {
 });
 
 describe('length', () => {
-  it('returns correct length of vector', () => {
-    expect(vLength({ x: -2, y: -4 }, { x: 1, y: 0 })).toEqual(5);
+  it('returns correct length of vector between two points', () => {
+    expect(length({ x: -2, y: -4 }, { x: 1, y: 0 })).toEqual(5);
+    expect(length({ x: 0, y: 0 }, { x: 0, y: 0 })).toEqual(0);
   })
 });
 

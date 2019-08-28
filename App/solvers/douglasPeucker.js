@@ -1,22 +1,23 @@
 export const diff = (v1, v2) => ({ x: v1.x - v2.x, y: v1.y - v2.y });
-export const vLength = (v1, v2) => (diff(v1, v2).x ** 2 + diff(v1, v2).y ** 2) ** 0.5;
+export const length = (v1, v2) => (diff(v1, v2).x ** 2 + diff(v1, v2).y ** 2) ** 0.5;
 
-export const perpendicularDistance = (pi, [p1, pEnd]) => {
+export const perpendicularDistance = (pi, line) => {
+  const [p1, pEnd] = line
   const alpha = Math.atan((diff(pEnd, p1).y / (diff(pEnd, p1).x)));
   const lambda = Math.atan((diff(pi, p1).y / (diff(pi, p1).x)));
   const theta = alpha - lambda;
   return Math.sin(theta) * length(pi, p1);
 };
 
-const DouglasPeucker = (PointList, epsilon) => {
+export const DouglasPeucker = (pointList, epsilon) => {
   // Find the point with the maximum distance
-  let dmax = 0;
+  let dMax = 0;
   let index = 0;
-  const end = PointList.length;
+  const end = pointList.length;
 
   for (let i = 2; end - 1; i += 1) {
-    const d = perpendicularDistance(PointList[i], [PointList[1], PointList[end]]);
-    if (d > dmax) {
+    const d = perpendicularDistance(pointList[i], [pointList[1], pointList[end]]);
+    if (d > dMax) {
       index = i;
       dmax = d;
     }
@@ -25,7 +26,7 @@ const DouglasPeucker = (PointList, epsilon) => {
   let ResultList = [];
 
   // If max distance is greater than epsilon, recursively simplify
-  if (dmax > epsilon) {
+  if (dMax > epsilon) {
     // Recursive call
     const recResults1 = DouglasPeucker(PointList.slice(1, index), epsilon); //[]
     const recResults2 = DouglasPeucker(PointList.slice(index, end), epsilon); //[]
