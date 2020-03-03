@@ -52,7 +52,7 @@ export const decorateTrack = ({ track }) => {
   decoratedTrack.elapsedTime = elapsedTime;
   decoratedTrack.startEndDistance = startEndDistance;
   decoratedTrack.totalDistance = totalDistance(track);
-  decoratedTrack.date = track[0].ts;
+  decoratedTrack.date = track[0].ts;// format to: "Mon, 02 Jan 2006 15:04:05 -0700"
   decoratedTrack.isComplete = true;
   return decoratedTrack;
 };

@@ -19,23 +19,23 @@ describe('simplifyPosition', () => {
       otherstuff: {
         x: '123'
       }
-    }
+    };
     const expected = {
       lon: 12.345, 
       lat: 678.901,
       alt: 1111,
       ts: 1566964158137,
-    }
+    };
     expect(simplifyPosition(inputPosition)).toEqual(expected);
-  })
-})
+  });
+});
 
 describe('distanceBetweenPoints', () => {
   it('returns zero if one point is undefined', () => {
     const point1 = {
       lon: 0,
       lat: 0,
-    }
+    };
     expect(distanceBetweenPoints(point1)).toEqual(0);
   });
   it('calculates correct distance in km between points', () => {
@@ -46,9 +46,9 @@ describe('distanceBetweenPoints', () => {
     const point2 = {
       lon: 10,
       lat: 10,
-    }
+    };
     expect(distanceBetweenPoints(point1, point2)).toEqual(1568.5227233314436);
-  })
+  });
 });
 
 describe('totalDistance', () => {
@@ -76,7 +76,7 @@ describe('filterPoint', () => {
     prevPoint = {
       alt: limits.MAX_ALTITUDE - 1,
     }
-  })
+  });
   it('returns null if point is outwith altitude limit', () => {
     const currPoint = {
       alt: limits.MAX_ALTITUDE + 1,
@@ -92,7 +92,7 @@ describe('filterPoint', () => {
     };
     prevPoint = {
       alt: limits.MAX_ALTITUDE - 1,
-      ts: 1667964158137,
+      ts: 167964158137,
       lon: 0,
       lat: 20,
     }
@@ -100,7 +100,7 @@ describe('filterPoint', () => {
   });
   it('returns null if there is no prevPoint', () => {
     const currPoint = {
-      alt: limits.MAX_ALTITUDE + 1,
+      alt: limits.MAX_ALTITUDE - 1,
     }
     prevPoint = null;
     expect(filterPoint(currPoint, prevPoint)).toEqual(null)

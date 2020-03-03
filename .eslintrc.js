@@ -4,12 +4,8 @@ module.exports = {
       "Atomics": "readonly",
       "SharedArrayBuffer": "readonly"
   },
-  "env": {
-    "browser": true,
-    "node": true,
-    "jasmine": true,
-    "jest": true,
-    "es6": true
+  "overrides": {
+      "jest": "true"
   },
   "parser": "babel-eslint",
 
@@ -31,7 +27,7 @@ module.exports = {
       "object-curly-newline": "off",
       "react/jsx-boolean-value": "off",
       "react/state-in-constructor": "off",
-      "react/destructuring-assignment": "off"
+      "react/destructuring-assignment": "off",
+      "global-require": "off",
   },
 };
-x

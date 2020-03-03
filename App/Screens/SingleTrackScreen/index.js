@@ -17,7 +17,7 @@ const SingleTrackScreen = ({
   const track = navigation.getParam('track', null);
   //console.log({ track })
   
-  console.log(convertTrackToIGC({track}))
+  console.log(track)
 
   return (
     <View style={[s.align.vCenter, s.align.hCenter]}>
