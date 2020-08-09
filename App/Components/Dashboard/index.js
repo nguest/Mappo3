@@ -1,12 +1,12 @@
-import React from 'react';
-import { array, bool, func, object } from 'prop-types';
-import { View } from 'react-native';
-import DashboardInternals from './DashboardInternals';
-import { getElapsedTime } from '../../helpers/timeManager';
-import { distanceBetweenPoints } from '../../helpers/pointsManager';
-import recordingAlert from './RecordingAlert';
+import React from "react";
+import { array, bool, func, object } from "prop-types";
+import { View } from "react-native";
+import DashboardInternals from "./DashboardInternals";
+import { getElapsedTime } from "../../helpers/timeManager";
+import { distanceBetweenPoints } from "../../helpers/pointsManager";
+import recordingAlert from "./RecordingAlert";
 
-import styles from './styles';
+import styles from "./styles";
 
 const Dashboard = ({
   currentPosition,
@@ -20,7 +20,7 @@ const Dashboard = ({
     <DashboardInternals
       distanceFromStart={distanceBetweenPoints(
         currentTrack[0],
-        currentTrack[currentTrack.length - 1],
+        currentTrack[currentTrack.length - 1]
       )}
       currentPosition={currentPosition}
       //elapsedTime={getElapsedTime(currentTrack)}
@@ -28,7 +28,8 @@ const Dashboard = ({
       isRecording={isRecording}
       onToggleRecord={() => {
         onToggleRecord();
-        if (isRecording) recordingAlert({ currentTrack, onCompleteCurrentTrack });
+        if (isRecording)
+          recordingAlert({ currentTrack, onCompleteCurrentTrack });
       }}
     />
   </>
@@ -46,8 +47,8 @@ Dashboard.defaultProps = {
   currentPosition: {},
   currentTrack: {},
   isRecording: false,
-  onCompleteCurrentTrack: () => { },
-  onToggleRecord: () => { },
+  onCompleteCurrentTrack: () => {},
+  onToggleRecord: () => {},
 };
 
 export default Dashboard;

@@ -1,10 +1,10 @@
-import RNFS from 'react-native-fs';
-import { format } from 'date-fns';
+import RNFS from "react-native-fs";
+import { format } from "date-fns";
 
 export const readFiles = () => {
   RNFS.readDir(RNFS.DocumentDirectoryPath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is undefined)
     .then((result) => {
-      console.log('GOT RESULT', result);
+      console.log("GOT RESULT", result);
 
       // stat the first file
       return Promise.all([RNFS.stat(result[0].path), result[0].path]);
@@ -12,12 +12,12 @@ export const readFiles = () => {
     .then((statResult) => {
       if (statResult[0].isFile()) {
         // if we have a file, read it
-        return RNFS.readFile(statResult[1], 'utf8');
+        return RNFS.readFile(statResult[1], "utf8");
       }
-      return 'no file';
+      return "no file";
     })
     .then((contents) => {
-    // log the file contents
+      // log the file contents
       console.log({ contents });
     })
     .catch((e) => {
@@ -32,9 +32,9 @@ export const createFile = ({ content, fileName }) => {
   const path = `${RNFS.DocumentDirectoryPath}/${fileName}`;
 
   // write the file
-  return RNFS.writeFile(path, content, 'utf8')
+  return RNFS.writeFile(path, content, "utf8")
     .then(() => {
-      console.log('FILE WRITTEN!');
+      console.log("FILE WRITTEN!");
       return path;
     })
     .catch((e) => {
@@ -42,16 +42,15 @@ export const createFile = ({ content, fileName }) => {
     });
 };
 
-export const deleteFile = ({ filePath }) => (
+export const deleteFile = ({ filePath }) =>
   RNFS.unlink(filePath)
     .then(() => {
-      console.log('FILE DELETED');
+      console.log("FILE DELETED");
     })
     // `unlink` will throw an error, if the item to unlink does not exist
     .catch((err) => {
       console.log(err.message);
-    })
-);
+    });
 
 export const convertTrackToGPX = ({ track }) => {
   const headers = `
@@ -68,16 +67,16 @@ export const convertTrackToGPX = ({ track }) => {
   const points = track.data.reduce((str, p) => {
     const x = `<trkpt lat="${p.lat}" lon="${p.lon}">
         <ele>${p.alt}</ele>
-        <time>${format(p.ts, 'YYYY-MM-DDTHH:MM:SSZ')}</time>
+        <time>${format(p.ts, "YYYY-MM-DDTHH:MM:SSZ")}</time>
       </trkpt>`;
-    return str.concat('', x);
-  }, '');
+    return str.concat("", x);
+  }, "");
 
   const trackGPX = `
     ${headers}
     ${metadata}
     <trk>
-      <name>Track on ${format(track.date, 'DD/MM/YYYY')}</name>
+      <name>Track on ${format(track.date, "DD/MM/YYYY")}</name>
       <trkseg>
         ${points}
       </trkseg>
@@ -90,10 +89,10 @@ export const convertTrackToGPX = ({ track }) => {
 export const DDtoDDSStr = (DD, bytes) => {
   const DDn = DD < 0 ? 360 + DD : DD;
   const afterPoint = (DDn - Math.floor(DDn)) * 60;
- // console.log({afterPoint})
-  const strAfterPoint = `${afterPoint.toFixed(3)}`.replace('.', '');
- // console.log({strAfterPoint})
-  return `${Math.floor(DDn)}${strAfterPoint}`.padStart(bytes, '0');
+  // console.log({afterPoint})
+  const strAfterPoint = `${afterPoint.toFixed(3)}`.replace(".", "");
+  // console.log({strAfterPoint})
+  return `${Math.floor(DDn)}${strAfterPoint}`.padStart(bytes, "0");
 };
 
 export const convertTrackToIGC = ({ track }) => {
@@ -112,14 +111,14 @@ G9E9EDF195217B7DE
 `;
 
   const fixes = track.data.reduce((str, p) => {
-    const time = `${format(p.ts, 'HHMMSS')}`;
+    const time = `${format(p.ts, "HHMMSS")}`;
     const lat = `${DDtoDDSStr(p.lat, 7)}`; // correct?
     const lon = `${DDtoDDSStr(p.lon, 8)}`;
-    const gpsAlt = `${p.alt.toFixed(0).padStart(5, '0')}`;
+    const gpsAlt = `${p.alt.toFixed(0).padStart(5, "0")}`;
     const bRecord = `B${time}${lat}N${lon}EA00000${gpsAlt}\n`;
-    console.log({ time, lat, lon, gpsAlt, bRecord })
-    return str.concat('', bRecord);
-  }, '');
+    console.log({ time, lat, lon, gpsAlt, bRecord });
+    return str.concat("", bRecord);
+  }, "");
 
   // B091938.4624909N.00806690E.A0000002143
   // B220822.3732675N.23737850E.A0000000000
