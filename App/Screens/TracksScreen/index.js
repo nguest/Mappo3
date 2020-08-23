@@ -7,30 +7,25 @@ import { getAllTracks, removeTrack as removeStoredTrack } from '../../helpers/st
 
 import s from '../../styles';
 
-const TracksScreen = ({
-  isFocused,
-  navigation,
-}) => {
+const TracksScreen = ({ isFocused, navigation }) => {
   const [tracks, setTracks] = useState(null);
 
   useEffect(() => {
     if (isFocused) {
-      getAllTracks()
-        .then((items) => {
-          Promise.all(items)
-            .then((resolvedItems) => {
-              const completedTracks = resolvedItems
-                .map((item) => JSON.parse(item))
-                .filter((item) => item.isComplete)
-                .sort((a, b) => new Date(b.date) - new Date(a.date));
-              setTracks(completedTracks || []);
-            });
+      getAllTracks().then((items) => {
+        Promise.all(items).then((resolvedItems) => {
+          const completedTracks = resolvedItems
+            .map((item) => JSON.parse(item))
+            .filter((item) => item.isComplete)
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
+          setTracks(completedTracks || []);
         });
+      });
     }
   }, [isFocused]);
 
   const removeTrack = ({ id }) => {
-    const newTracks = tracks.filter((track) => (track.id !== id));
+    const newTracks = tracks.filter((track) => track.id !== id);
     setTracks(newTracks);
     removeStoredTrack({ id });
   };
@@ -45,11 +40,7 @@ const TracksScreen = ({
     return <Text>You have no saved tracks!</Text>;
   };
 
-  return (
-    <SafeAreaView style={[s.align.vCenter, s.align.hCenter]}>
-      { renderTrackList() }
-    </SafeAreaView>
-  );
+  return <SafeAreaView style={[s.align.vCenter, s.align.hCenter]}>{renderTrackList()}</SafeAreaView>;
 };
 
 TracksScreen.propTypes = {

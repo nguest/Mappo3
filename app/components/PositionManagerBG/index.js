@@ -1,12 +1,12 @@
 // Import BackgroundGeolocation + any optional interfaces
-import { Component } from "react";
-import { func } from "prop-types";
-import BackgroundGeolocation from "react-native-background-geolocation";
+import { Component } from 'react';
+import { func } from 'prop-types';
+import BackgroundGeolocation from 'react-native-background-geolocation';
 
 export default class PositionManagerBG extends Component {
   componentWillMount() {
     // 1.  Wire up event-listeners
-    console.log("componentWillMount");
+    console.log('componentWillMount');
     // This handler fires whenever bgGeo receives a location update.
     BackgroundGeolocation.onLocation(this.onLocation, this.onError);
 
@@ -36,18 +36,15 @@ export default class PositionManagerBG extends Component {
         // HTTP / SQLite config
       },
       (state) => {
-        console.log(
-          "- BackgroundGeolocation is configured and ready: ",
-          state.enabled
-        );
+        console.log('- BackgroundGeolocation is configured and ready: ', state.enabled);
 
         if (!state.enabled) {
           // 3. Start tracking!
           BackgroundGeolocation.start(() => {
-            console.log("- Start success");
+            console.log('- Start success');
           });
         }
-      }
+      },
     );
   }
 
@@ -57,24 +54,24 @@ export default class PositionManagerBG extends Component {
   }
 
   onLocation = (location) => {
-    console.log("[location] -", location);
+    console.log('[location] -', location);
     this.props.onChangePosition(location);
   };
 
   onError = (error) => {
-    console.warn("[location] ERROR -", error);
+    console.warn('[location] ERROR -', error);
   };
 
   onActivityChange = (event) => {
-    console.log("[activitychange] -", event); // eg: 'on_foot', 'still', 'in_vehicle'
+    console.log('[activitychange] -', event); // eg: 'on_foot', 'still', 'in_vehicle'
   };
 
   onProviderChange = (provider) => {
-    console.log("[providerchange] -", provider.enabled, provider.status);
+    console.log('[providerchange] -', provider.enabled, provider.status);
   };
 
   onMotionChange = (event) => {
-    console.log("[motionchange] -", event.isMoving, event.location);
+    console.log('[motionchange] -', event.isMoving, event.location);
   };
 
   render() {

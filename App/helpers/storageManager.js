@@ -1,11 +1,11 @@
-import AsyncStorage from "@react-native-community/async-storage";
-import uuid from "uuid";
+import AsyncStorage from '@react-native-community/async-storage';
+import uuid from 'uuid';
 
 const storeData = async ({ id, data }) => {
   try {
     await AsyncStorage.setItem(id, JSON.stringify(data));
   } catch (e) {
-    console.warn("error saving!", e);
+    console.warn('error saving!', e);
   }
 };
 
@@ -16,7 +16,7 @@ export const saveNewTrack = ({ initialPosition }) => {
 };
 
 export const updateSavedTrack = ({ id, track }) => {
-  console.log("update", { track, id });
+  console.log('update', { track, id });
   storeData({ id, data: { ...track, id } });
 };
 
@@ -26,7 +26,7 @@ export const getTrack = async ({ id }) => {
     if (track !== null) return track;
     return null;
   } catch (e) {
-    console.warn("error getting!", e);
+    console.warn('error getting!', e);
   }
 };
 
@@ -35,7 +35,7 @@ export const removeTrack = async ({ id }) => {
     await AsyncStorage.removeItem(id);
     return null;
   } catch (e) {
-    console.warn("error removing!", e);
+    console.warn('error removing!', e);
   }
 };
 
@@ -45,7 +45,7 @@ export const getAllStorageKeys = async () => {
     keys = await AsyncStorage.getAllKeys();
     return keys;
   } catch (e) {
-    console.warn("error getting all", e);
+    console.warn('error getting all', e);
   }
 
   return keys;

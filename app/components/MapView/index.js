@@ -1,23 +1,23 @@
-import React, { useEffect, useRef } from "react";
-import { array, bool, number } from "prop-types";
-import { SafeAreaView, PermissionsAndroid, Platform, View } from "react-native";
-import MapboxGL from "@react-native-mapbox-gl/maps";
-import { lineString as makeLineString } from "@turf/helpers";
-import mapboxApiKey from "../../config";
+import React, { useEffect, useRef } from 'react';
+import { array, bool, number } from 'prop-types';
+import { SafeAreaView, PermissionsAndroid, Platform, View } from 'react-native';
+import MapboxGL from '@react-native-mapbox-gl/maps';
+import { lineString as makeLineString } from '@turf/helpers';
+import mapboxApiKey from '../../config';
 
-import styles from "./styles";
+import styles from './styles';
 
 const renderTrack = (currentTrack) => {
   if (!currentTrack || currentTrack.length < 2) return null;
   const parsedCoords = currentTrack.map((point) => [point.lon, point.lat]);
-  const lineString = makeLineString(parsedCoords, { name: "track" });
+  const lineString = makeLineString(parsedCoords, { name: 'track' });
 
   return (
     <MapboxGL.ShapeSource id="routeSource" shape={lineString}>
       <MapboxGL.LineLayer
         id="routeFill"
         style={{
-          lineColor: "#ff0000",
+          lineColor: '#ff0000',
           lineCap: MapboxGL.LineJoin.Round,
           lineWidth: 10,
           lineOpacity: 0.84,
@@ -41,18 +41,12 @@ const renderMarkers = (currentTrack) => {
   );
 };
 
-const Map = ({
-  centerCoordinate,
-  currentTrack,
-  isDynamic,
-  isRecording,
-  zoomLevel,
-}) => {
+const Map = ({ centerCoordinate, currentTrack, isDynamic, isRecording, zoomLevel }) => {
   const didMountRef = useRef(false);
 
   useEffect(() => {
     if (!didMountRef.current) {
-      if (Platform.OS === "android") {
+      if (Platform.OS === 'android') {
         PermissionsAndroid.requestMultiple([
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,

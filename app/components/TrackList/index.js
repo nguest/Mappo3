@@ -1,12 +1,12 @@
-import React from "react";
-import { array, func, object } from "prop-types";
-import { Text, TouchableOpacity, View } from "react-native";
-import { SwipeListView } from "react-native-swipe-list-view";
-import Icon from "react-native-vector-icons/Ionicons";
-import ListItem from "./ListItem";
+import React from 'react';
+import { array, func, object } from 'prop-types';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import Icon from 'react-native-vector-icons/Ionicons';
+import ListItem from './ListItem';
 
-import s from "../../styles";
-import styles from "./styles";
+import s from '../../styles';
+import styles from './styles';
 
 const TrackList = ({ navigation, tracks, removeTrack }) => (
   <View style={styles.list}>
@@ -17,7 +17,7 @@ const TrackList = ({ navigation, tracks, removeTrack }) => (
           item={item}
           key={item.id}
           onPressItem={({ id }) =>
-            navigation.navigate("SingleTrack", {
+            navigation.navigate('SingleTrack', {
               track: tracks.find((track) => track.id === id),
             })
           }
@@ -29,10 +29,7 @@ const TrackList = ({ navigation, tracks, removeTrack }) => (
         return (
           <View style={styles.rowUnderlay}>
             <Text>Noop</Text>
-            <TouchableOpacity
-              onPress={() => removeTrack({ id })}
-              style={styles.button}
-            >
+            <TouchableOpacity onPress={() => removeTrack({ id })} style={styles.button}>
               <Icon name="ios-trash" size={24} color={s.colors.bg} />
             </TouchableOpacity>
           </View>

@@ -9,15 +9,15 @@ export default class PositionManager extends Component {
 
   componentDidMount() {
     Geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         this.setState({ position });
       },
-      error => console.log(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      (error) => console.log(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-    this.positionWatchID = Geolocation.watchPosition(position => {
+    this.positionWatchID = Geolocation.watchPosition((position) => {
       // console.log('watchPosition', position)
-      this.setState({position});
+      this.setState({ position });
       this.props.onChangePosition(position);
     });
   }
@@ -33,4 +33,4 @@ export default class PositionManager extends Component {
 
 PositionManager.propTypes = {
   onChangePosition: func,
-}
+};

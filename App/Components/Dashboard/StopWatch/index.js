@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { bool } from "prop-types";
-import { Text, View } from "react-native";
-import { addSeconds, format } from "date-fns";
+import React, { useEffect, useState } from 'react';
+import { bool } from 'prop-types';
+import { Text, View } from 'react-native';
+import { addSeconds, format } from 'date-fns';
 
-import { stdTimezoneOffsetInSecs } from "../../../helpers/timeManager";
+import { stdTimezoneOffsetInSecs } from '../../../helpers/timeManager';
 
-import s from "../../../styles";
+import s from '../../../styles';
 
 const StopWatch = ({ doReset, isStarted }) => {
   const [isActive, setIsActive] = useState(false);
@@ -39,10 +39,7 @@ const StopWatch = ({ doReset, isStarted }) => {
   return (
     <View>
       <Text style={s.typography.textM}>
-        {format(
-          addSeconds(new Date(0), ms * 0.001 + stdTimezoneOffsetInSecs()),
-          "HH:mm:ss"
-        )}
+        {format(addSeconds(new Date(0), ms * 0.001 + stdTimezoneOffsetInSecs()), 'HH:mm:ss')}
       </Text>
     </View>
   );

@@ -1,19 +1,21 @@
-import React from "react";
+import React from 'react';
 import {
   createBottomTabNavigator,
   BottomTabBar,
   createStackNavigator,
   createMaterialTopTabNavigator,
-} from "react-navigation";
-import { format } from "date-fns";
+} from 'react-navigation';
+import { format } from 'date-fns';
 
-import HomeScreen from "../screens/HomeScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import TracksScreen from "../screens/TracksScreen";
-import SingleTrackScreen from "../screens/SingleTrackScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreen from '../screens/HomeScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import TracksScreen from '../screens/TracksScreen';
+import SingleTrackScreen from '../screens/SingleTrackScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
-import s from "../styles";
+import s from '../styles';
+
+const INITIAL_ROUTE = 'Home';
 
 const SettingsNavigator = createMaterialTopTabNavigator(
   {
@@ -26,17 +28,17 @@ const SettingsNavigator = createMaterialTopTabNavigator(
       labelStyle: {
         paddingTop: 16,
         //fontSize: 20,
-        textTransform: "none",
-        color: "#000000",
+        textTransform: 'none',
+        color: '#000000',
       },
       // tabStyle: {
       //   width: 100,
       // },
       style: {
-        backgroundColor: "#eeeeee",
+        backgroundColor: '#eeeeee',
       },
     },
-  }
+  },
 );
 
 const TracksNavigator = createStackNavigator(
@@ -44,22 +46,22 @@ const TracksNavigator = createStackNavigator(
     Tracks: {
       screen: TracksScreen,
       navigationOptions: () => ({
-        title: "Tracks",
+        title: 'Tracks',
       }),
     },
     SingleTrack: {
       screen: SingleTrackScreen,
       navigationOptions: ({ navigation }) => {
-        const track = navigation.getParam("track", "Flight");
+        const track = navigation.getParam('track', 'Flight');
         return {
-          title: `Flight on ${format(track.date, "DD/MM/YYYY")}`,
+          title: `Flight on ${format(track.date, 'DD/MM/YYYY')}`,
         };
       },
     },
   },
   {
-    initialRouteName: "Tracks",
-  }
+    initialRouteName: 'Tracks',
+  },
 );
 
 const TabBarComponent = (props) => <BottomTabBar {...props} />;
@@ -71,13 +73,8 @@ const TabNavigator = createBottomTabNavigator(
     Tracks: TracksNavigator,
   },
   {
-    initialRouteName: "Settings",
-    tabBarComponent: (props) => (
-      <TabBarComponent
-        {...props}
-        style={{ borderTopColor: "#FF0000", height: 20 }}
-      />
-    ),
+    initialRouteName: INITIAL_ROUTE,
+    tabBarComponent: (props) => <TabBarComponent {...props} style={{ borderTopColor: '#FF0000', height: 20 }} />,
 
     // defaultNavigationOptions: ({ navigation }) => ({
     //   tabBarIcon: ({ focused, horizontal, tintColor }) => {
@@ -99,10 +96,10 @@ const TabNavigator = createBottomTabNavigator(
     // }),
     tabBarOptions: {
       activeTintColor: s.colors.fg,
-      inactiveTintColor: "gray",
-      activeBackgroundColor: "rgba(255,255,255,0.1)",
+      inactiveTintColor: 'gray',
+      activeBackgroundColor: 'rgba(255,255,255,0.1)',
     },
-  }
+  },
 );
 
 export default TabNavigator;

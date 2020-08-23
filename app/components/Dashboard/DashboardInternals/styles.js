@@ -6,23 +6,23 @@ const { height, width } = Dimensions.get('window');
 
 const DASH_MARGIN = 6;
 
-const SHDW_DIMS  = {
+const SHDW_DIMS = {
   height: 1,
-  width: 0
-}
+  width: 0,
+};
 
 const boxShadow = {
-  shadowColor: "#000000",
+  shadowColor: '#000000',
   shadowOpacity: 0.4,
   shadowRadius: 5,
   shadowOffset: SHDW_DIMS,
-}
+};
 
 const styles = StyleSheet.create({
   topContainer: {
     position: 'absolute',
     width: width - DASH_MARGIN * 2,
-    top: DASH_MARGIN + 20,
+    top: DASH_MARGIN,
     //...s.align.hCenter,
     //backgroundColor: '#46fd89',
     flexDirection: 'row',

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { bool, object } from 'prop-types';
-import { View } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 
 import MapView from '../../components/MapView';
@@ -11,15 +11,11 @@ import s from '../../styles';
 import { clearAsyncStorage, saveNewTrack, updateSavedTrack } from '../../helpers/storageManager';
 import { decorateTrack, simplifyPosition, filterPoint } from '../../helpers/pointsManager';
 
-const HomeScreen = ({
-  isFocused,
-  navigation,
-}) => {
+const HomeScreen = ({ isFocused, navigation }) => {
   const [currentPosition, setCurrentPosition] = useState(null);
   const [currentTrack, setCurrentTrack] = useState([]);
   const [currentTrackId, setCurrentTrackId] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
-
 
   const saveTrack = (position) => {
     if (currentTrack.length % 5 === 0) {
@@ -37,14 +33,9 @@ const HomeScreen = ({
     const simplifiedPosition = simplifyPosition(position);
     let filteredPosition = simplifiedPosition;
     if (currentTrack.length) {
-      filteredPosition = filterPoint(
-        simplifiedPosition,
-        currentTrack[currentTrack.length - 1],
-      );
+      filteredPosition = filterPoint(simplifiedPosition, currentTrack[currentTrack.length - 1]);
     }
-    const theCurrentTrack = isRecording && filteredPosition
-      ? [...currentTrack, filteredPosition]
-      : currentTrack;
+    const theCurrentTrack = isRecording && filteredPosition ? [...currentTrack, filteredPosition] : currentTrack;
 
     setCurrentPosition(position);
     setCurrentTrack(theCurrentTrack);
@@ -74,15 +65,13 @@ const HomeScreen = ({
     resetTrack();
   };
 
-
   //clearAsyncStorage()
   console.log({ currentTrack });
 
   return (
-    <View style={[s.align.vCenter, s.align.hCenter]}>
+    <SafeAreaView style={[s.align.vCenter, s.align.hCenter]}>
       <MapView
-        centerCoordinate={currentPosition
-          && [currentPosition.coords.longitude, currentPosition.coords.latitude]}
+        centerCoordinate={currentPosition && [currentPosition.coords.longitude, currentPosition.coords.latitude]}
         currentTrack={currentTrack}
         isDynamic={true}
         isRecording={isRecording}
@@ -96,7 +85,7 @@ const HomeScreen = ({
         onToggleRecord={() => setIsRecording((isRecord) => !isRecord)}
       />
       <PositionManagerBG onChangePosition={onChangePosition} />
-    </View>
+    </SafeAreaView>
   );
 };
 
